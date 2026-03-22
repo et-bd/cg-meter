@@ -2,166 +2,171 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#06060f">
 <title>🎡 Lucky CG Wheel · ET Server</title>
 <style>
-  @font-face{font-family:'TNR';src:local('Times New Roman'),local('TimesNewRoman'),local('Times');font-weight:100 900;}
-</style>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
   --bg:#06060f;--panel:#0d0d1f;--border:#1c1c3a;
   --cyan:#00f0ff;--purple:#b44fff;--gold:#ffd700;
   --green:#00ff88;--pink:#ff3399;--text:#dde1ff;--muted:#5a5a8a;
+  --TNR:'Times New Roman',Times,serif;
 }
-body{background:var(--bg);color:var(--text);font-family:'Times New Roman','TNR',Times,serif;
-  min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden}
+html,body{height:100%;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--TNR);
+  min-height:100vh;display:flex;flex-direction:column;align-items:center}
 
-/* ── STARS ── */
-#stars{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0}
 .star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s infinite alternate}
-@keyframes twinkle{0%{opacity:.1}100%{opacity:.8}}
+@keyframes twinkle{0%{opacity:.08}100%{opacity:.7}}
 
-/* ── GRID BG ── */
 body::before{content:'';position:fixed;inset:0;
-  background-image:linear-gradient(rgba(0,240,255,.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,240,255,.03) 1px,transparent 1px);
-  background-size:40px 40px;pointer-events:none;z-index:0}
+  background-image:linear-gradient(rgba(0,240,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,240,255,.025) 1px,transparent 1px);
+  background-size:36px 36px;pointer-events:none;z-index:0}
 
-/* ── HEADER ── */
-header{width:100%;text-align:center;padding:2.5rem 1rem 1rem;position:relative;z-index:1}
-.logo-tag{font-family:'Times New Roman',Times,serif;font-style:italic;font-size:.85rem;letter-spacing:4px;
-  color:var(--cyan);text-transform:uppercase;opacity:.7;margin-bottom:.5rem}
-h1{font-family:'Times New Roman',Times,serif;font-size:clamp(1.6rem,5vw,2.8rem);
-  font-weight:900;letter-spacing:2px;line-height:1.1;
+header{width:100%;text-align:center;padding:1.8rem 1rem .7rem;position:relative;z-index:1}
+.logo-tag{font-style:italic;font-size:.8rem;letter-spacing:3px;color:var(--cyan);
+  text-transform:uppercase;opacity:.7;margin-bottom:.35rem}
+h1{font-size:clamp(1.4rem,7vw,2.4rem);font-weight:900;letter-spacing:1px;line-height:1.1;
   background:linear-gradient(135deg,var(--cyan),var(--purple),var(--gold));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.subtitle{font-size:1rem;color:var(--muted);letter-spacing:3px;margin-top:.4rem;font-weight:600}
+.subtitle{font-size:.88rem;color:var(--muted);letter-spacing:2px;margin-top:.25rem;font-style:italic}
 
-/* ── MAIN ── */
-main{width:100%;max-width:520px;padding:1rem 1.2rem 2rem;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:1.2rem}
+main{width:100%;max-width:460px;padding:.7rem .9rem 2rem;position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;gap:.9rem}
 
-/* ── STEP CARD ── */
 .step-card{width:100%;background:var(--panel);border:1px solid var(--border);
-  border-radius:16px;padding:1.2rem 1.4rem;position:relative;overflow:hidden}
+  border-radius:14px;padding:.9rem 1rem;position:relative;overflow:hidden}
 .step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
   background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),transparent)}
-.step-label{font-family:'Times New Roman',Times,serif;font-style:italic;font-size:.8rem;letter-spacing:3px;
-  color:var(--purple);text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem}
-.step-label span{width:18px;height:18px;background:var(--purple);border-radius:50%;
-  display:inline-flex;align-items:center;justify-content:center;font-size:.6rem;color:#fff;font-weight:700}
+.step-label{font-style:italic;font-size:.76rem;letter-spacing:2px;color:var(--purple);
+  text-transform:uppercase;margin-bottom:.45rem;display:flex;align-items:center;gap:.35rem}
+.step-label span{width:20px;height:20px;background:var(--purple);border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;font-size:.62rem;
+  color:#fff;font-weight:900;font-style:normal;flex-shrink:0}
 
-/* ── SELECT ── */
-select{width:100%;background:#0a0a1a;border:1px solid var(--border);color:var(--text);
-  font-family:'Times New Roman',Times,serif;font-size:1rem;font-weight:600;padding:.7rem 1rem;
+select{width:100%;background:#080814;border:1px solid var(--border);color:var(--text);
+  font-family:var(--TNR);font-size:.98rem;font-weight:600;padding:.72rem .9rem;
   border-radius:10px;outline:none;cursor:pointer;transition:border .2s,box-shadow .2s;
-  appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300f0ff' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 1rem center}
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300f0ff' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .9rem center}
 select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,240,255,.1)}
-select option{background:#0d0d1f}
+select option{background:#0d0d1f;color:var(--text)}
 
-.grade-info{margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.4rem}
-.grade-pill{background:#0a0a1a;border:1px solid var(--border);border-radius:20px;
-  padding:.2rem .6rem;font-size:.75rem;font-weight:600;color:var(--muted)}
+.grade-info{margin-top:.6rem;display:flex;flex-wrap:wrap;gap:.28rem}
+.grade-pill{background:#080814;border:1px solid var(--border);border-radius:20px;
+  padding:.16rem .5rem;font-size:.68rem;font-weight:600;color:var(--muted)}
 .grade-pill b{color:var(--cyan)}
 
-/* ── WHEEL SECTION ── */
-.wheel-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem;width:100%}
+.wheel-wrap{display:flex;flex-direction:column;align-items:center;gap:.9rem;width:100%}
 .wheel-container{position:relative;display:inline-block}
-#wheelCanvas{border-radius:50%;cursor:pointer;display:block;
-  filter:drop-shadow(0 0 20px rgba(0,240,255,.3)) drop-shadow(0 0 40px rgba(180,79,255,.2))}
-.pointer{position:absolute;top:-18px;left:50%;transform:translateX(-50%);
-  width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;
-  border-top:28px solid var(--gold);filter:drop-shadow(0 0 6px var(--gold));z-index:5}
-.pointer::after{content:'';position:absolute;top:-32px;left:-6px;width:12px;height:10px;
-  background:var(--gold);border-radius:2px}
-.wheel-glow{position:absolute;inset:-15px;border-radius:50%;
-  background:radial-gradient(ellipse,transparent 55%,rgba(0,240,255,.08) 100%);
+#wheelCanvas{border-radius:50%;display:block;touch-action:none;
+  filter:drop-shadow(0 0 16px rgba(0,240,255,.26)) drop-shadow(0 0 32px rgba(180,79,255,.16))}
+.pointer{position:absolute;top:-15px;left:50%;transform:translateX(-50%);
+  width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;
+  border-top:24px solid var(--gold);filter:drop-shadow(0 0 5px var(--gold));z-index:5}
+.wheel-glow{position:absolute;inset:-12px;border-radius:50%;
+  background:radial-gradient(ellipse,transparent 55%,rgba(0,240,255,.07) 100%);
   pointer-events:none;animation:glowPulse 2s infinite alternate}
 @keyframes glowPulse{0%{opacity:.5}100%{opacity:1}}
 
-/* ── SPIN BUTTON ── */
-#spinBtn{font-family:'Times New Roman',Times,serif;font-weight:700;font-style:italic;font-size:1.2rem;
-  letter-spacing:2px;padding:.9rem 3rem;border:none;border-radius:12px;cursor:pointer;
+#spinBtn{font-family:var(--TNR);font-weight:700;font-style:italic;font-size:1.1rem;
+  letter-spacing:2px;padding:.82rem 2rem;border:none;border-radius:12px;cursor:pointer;
   background:linear-gradient(135deg,var(--cyan),var(--purple));color:#000;
   position:relative;overflow:hidden;transition:transform .15s,box-shadow .2s;
-  box-shadow:0 0 20px rgba(0,240,255,.4),0 0 40px rgba(180,79,255,.2)}
-#spinBtn:hover:not(:disabled){transform:scale(1.05);box-shadow:0 0 30px rgba(0,240,255,.6),0 0 60px rgba(180,79,255,.3)}
-#spinBtn:active:not(:disabled){transform:scale(.97)}
-#spinBtn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+  width:100%;max-width:260px;box-shadow:0 0 20px rgba(0,240,255,.32),0 0 40px rgba(180,79,255,.16);
+  touch-action:manipulation}
+#spinBtn:active:not(:disabled){transform:scale(.96)}
+#spinBtn:disabled{opacity:.45;cursor:not-allowed}
 #spinBtn::before{content:'';position:absolute;top:-50%;left:-60%;width:40%;height:200%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
   transform:skewX(-20deg);animation:sheen 3s infinite}
 @keyframes sheen{0%{left:-60%}100%{left:160%}}
 
-/* ── RESULT ── */
-#resultSection{width:100%;display:none;animation:slideUp .5s ease}
-@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-.result-card{background:var(--panel);border:1px solid;border-radius:20px;padding:1.8rem;text-align:center;position:relative;overflow:hidden}
-.result-card.legendary{border-color:var(--gold);box-shadow:0 0 30px rgba(255,215,0,.2)}
-.result-card.great{border-color:var(--cyan);box-shadow:0 0 30px rgba(0,240,255,.15)}
-.result-card.good{border-color:var(--green);box-shadow:0 0 20px rgba(0,255,136,.1)}
-.result-card.okay{border-color:var(--purple);box-shadow:0 0 20px rgba(180,79,255,.1)}
-.result-card.low{border-color:var(--pink);box-shadow:0 0 20px rgba(255,51,153,.1)}
+#resultSection{width:100%;display:none;animation:slideUp .45s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+.result-card{background:var(--panel);border:1px solid;border-radius:18px;
+  padding:1.3rem 1.1rem;text-align:center;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;gap:.3rem}
 .result-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+
+.result-card.legendary{border-color:var(--gold);box-shadow:0 0 28px rgba(255,215,0,.16)}
 .result-card.legendary::before{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.result-card.great{border-color:var(--cyan);box-shadow:0 0 24px rgba(0,240,255,.12)}
 .result-card.great::before{background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.result-card.good{border-color:var(--green);box-shadow:0 0 18px rgba(0,255,136,.09)}
 .result-card.good::before{background:linear-gradient(90deg,transparent,var(--green),transparent)}
+.result-card.okay{border-color:var(--purple);box-shadow:0 0 18px rgba(180,79,255,.09)}
 .result-card.okay::before{background:linear-gradient(90deg,transparent,var(--purple),transparent)}
+.result-card.low{border-color:var(--pink);box-shadow:0 0 18px rgba(255,51,153,.09)}
 .result-card.low::before{background:linear-gradient(90deg,transparent,var(--pink),transparent)}
-.result-uni{font-size:.85rem;font-weight:600;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:.4rem}
-.result-grade-label{font-size:1rem;font-weight:600;color:var(--muted);margin-bottom:.3rem}
-.result-grade{font-family:'Times New Roman',Times,serif;font-size:3rem;font-weight:900;line-height:1}
-.result-card.legendary .result-grade{color:var(--gold);text-shadow:0 0 20px var(--gold)}
-.result-card.great .result-grade{color:var(--cyan);text-shadow:0 0 20px var(--cyan)}
-.result-card.good .result-grade{color:var(--green);text-shadow:0 0 20px var(--green)}
-.result-card.okay .result-grade{color:var(--purple);text-shadow:0 0 20px var(--purple)}
-.result-card.low .result-grade{color:var(--pink);text-shadow:0 0 20px var(--pink)}
-.result-cg{font-family:'Times New Roman',Times,serif;font-size:5rem;font-weight:900;line-height:1.1;margin:.2rem 0}
-.result-card.legendary .result-cg{background:linear-gradient(135deg,#ffd700,#ffaa00,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.result-card.great .result-cg{background:linear-gradient(135deg,var(--cyan),#00a8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.result-card.good .result-cg{background:linear-gradient(135deg,var(--green),#00cc66);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.result-card.okay .result-cg{background:linear-gradient(135deg,var(--purple),#9933ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.result-card.low .result-cg{background:linear-gradient(135deg,var(--pink),#ff0066);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.result-msg{font-size:1.1rem;font-weight:600;margin-top:.6rem;color:var(--text)}
-.result-sub{font-size:.85rem;color:var(--muted);margin-top:.2rem}
-.result-emoji{font-size:2rem;margin:.4rem 0}
 
-.result-actions{display:flex;gap:.8rem;margin-top:1.2rem;flex-wrap:wrap;justify-content:center}
-.btn{font-family:'Times New Roman',Times,serif;font-weight:700;font-size:.95rem;letter-spacing:1px;
-  padding:.7rem 1.4rem;border-radius:10px;border:1px solid;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.4rem}
-.btn-outline-cyan{background:transparent;border-color:var(--cyan);color:var(--cyan)}
-.btn-outline-cyan:hover{background:rgba(0,240,255,.1);box-shadow:0 0 15px rgba(0,240,255,.2)}
-.btn-outline-purple{background:transparent;border-color:var(--purple);color:var(--purple)}
-.btn-outline-purple:hover{background:rgba(180,79,255,.1);box-shadow:0 0 15px rgba(180,79,255,.2)}
-.btn-spin-again{background:linear-gradient(135deg,#1a1a2e,#16213e);border-color:var(--border);color:var(--text)}
-.btn-spin-again:hover{border-color:var(--muted)}
+.result-uni{font-size:.74rem;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+.result-grade-label{font-size:.78rem;color:var(--muted);font-style:italic}
 
-/* ── CONFETTI ── */
-.confetti-piece{position:fixed;width:8px;height:8px;pointer-events:none;z-index:100;border-radius:2px}
+.result-row{display:flex;align-items:center;justify-content:center;margin:.25rem 0}
+.result-grade{font-size:2.5rem;font-weight:900;line-height:1;
+  padding-right:.9rem;border-right:1px solid rgba(255,255,255,.1)}
+.result-cg{font-size:3.2rem;font-weight:900;line-height:1;padding-left:.9rem}
 
-/* ── FOOTER ── */
-footer{width:100%;text-align:center;padding:1.5rem 1rem;border-top:1px solid var(--border);
-  margin-top:1rem;position:relative;z-index:1}
-.footer-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 2rem;font-size:.8rem;color:var(--muted)}
+.result-card.legendary .result-grade,.result-card.legendary .result-cg{color:var(--gold);text-shadow:0 0 16px rgba(255,215,0,.55)}
+.result-card.great .result-grade,.result-card.great .result-cg{color:var(--cyan);text-shadow:0 0 16px rgba(0,240,255,.45)}
+.result-card.good .result-grade,.result-card.good .result-cg{color:var(--green);text-shadow:0 0 14px rgba(0,255,136,.45)}
+.result-card.okay .result-grade,.result-card.okay .result-cg{color:var(--purple);text-shadow:0 0 14px rgba(180,79,255,.45)}
+.result-card.low .result-grade,.result-card.low .result-cg{color:var(--pink);text-shadow:0 0 14px rgba(255,51,153,.45)}
+
+.result-emoji{font-size:1.9rem}
+.result-msg{font-size:.98rem;font-weight:700;color:var(--text);font-style:italic}
+.result-sub{font-size:.78rem;color:var(--muted)}
+.result-troll{font-size:.82rem;color:var(--pink);font-weight:700;font-style:italic;
+  background:rgba(255,51,153,.07);border:1px solid rgba(255,51,153,.18);
+  border-radius:8px;padding:.35rem .65rem;margin-top:.15rem;display:none}
+
+.result-actions{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:.7rem}
+.btn-full{grid-column:1/-1}
+.btn{font-family:var(--TNR);font-weight:700;font-size:.84rem;
+  padding:.62rem .9rem;border-radius:10px;border:1px solid;cursor:pointer;
+  transition:opacity .2s;display:flex;align-items:center;justify-content:center;
+  gap:.3rem;touch-action:manipulation;white-space:nowrap}
+.btn:active{opacity:.75}
+.btn-share{background:linear-gradient(135deg,rgba(0,240,255,.12),rgba(180,79,255,.12));
+  border-color:var(--cyan);color:var(--cyan)}
+.btn-save{background:transparent;border-color:var(--purple);color:var(--purple)}
+.btn-again{background:rgba(255,255,255,.04);border-color:var(--border);color:var(--text)}
+
+#toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%) translateY(16px);
+  background:#12122a;border:1px solid var(--cyan);border-radius:10px;
+  padding:.55rem 1.1rem;font-size:.82rem;color:var(--cyan);opacity:0;
+  transition:all .3s;pointer-events:none;white-space:nowrap;z-index:999}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.cp{position:fixed;width:7px;height:7px;pointer-events:none;z-index:200;border-radius:2px}
+
+footer{width:100%;text-align:center;padding:1.1rem 1rem;border-top:1px solid var(--border);
+  margin-top:.4rem;position:relative;z-index:1}
+.footer-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem 1.2rem;
+  font-size:.72rem;color:var(--muted)}
 .footer-grid span b{color:var(--cyan)}
-.footer-brand{margin-top:.5rem;font-family:'Times New Roman',Times,serif;font-style:italic;font-size:.75rem;
-  letter-spacing:3px;color:var(--muted);opacity:.5}
+.footer-brand{margin-top:.35rem;font-style:italic;font-size:.65rem;
+  letter-spacing:2px;color:var(--muted);opacity:.4}
 
-/* ── CANVAS HIDDEN RESULT ── */
 #resultCanvas{display:none}
 
-/* ── RESPONSIVE ── */
-@media(max-width:480px){
-  h1{font-size:1.6rem}
-  .result-cg{font-size:3.5rem}
-  .result-grade{font-size:2.2rem}
-  #spinBtn{font-size:.95rem;padding:.8rem 2rem}
+@media(max-width:380px){
+  .result-grade{font-size:2rem}
+  .result-cg{font-size:2.6rem}
+  .result-actions{grid-template-columns:1fr}
+  .btn-full{grid-column:auto}
 }
 </style>
 </head>
 <body>
 <div id="stars"></div>
+<div id="toast"></div>
 
 <header>
   <div class="logo-tag">ET Server · Bangladesh</div>
@@ -170,7 +175,6 @@ footer{width:100%;text-align:center;padding:1.5rem 1rem;border-top:1px solid var
 </header>
 
 <main>
-  <!-- STEP 1: University -->
   <div class="step-card">
     <div class="step-label"><span>1</span> Select Your University</div>
     <select id="uniSelect">
@@ -183,40 +187,42 @@ footer{width:100%;text-align:center;padding:1.5rem 1rem;border-top:1px solid var
       <option value="EWU">EWU · East West University</option>
       <option value="IUT">IUT · Islamic University of Technology</option>
       <option value="DU">DU · University of Dhaka</option>
-      <option value="BUET">BUET · Bangladesh Univ. of Eng. & Tech.</option>
-      <option value="CUET">CUET · Chittagong Univ. of Eng. & Tech.</option>
-      <option value="SUST">SUST · Shahjalal Univ. of Sci. & Tech.</option>
+      <option value="BUET">BUET · Bangladesh Univ. of Eng. &amp; Tech.</option>
+      <option value="CUET">CUET · Chittagong Univ. of Eng. &amp; Tech.</option>
+      <option value="SUST">SUST · Shahjalal Univ. of Sci. &amp; Tech.</option>
       <option value="RU">RU · University of Rajshahi</option>
     </select>
     <div class="grade-info" id="gradeInfo"></div>
   </div>
 
-  <!-- STEP 2: Wheel -->
   <div class="step-card">
     <div class="step-label"><span>2</span> Spin The Wheel</div>
     <div class="wheel-wrap">
       <div class="wheel-container">
         <div class="wheel-glow"></div>
         <div class="pointer"></div>
-        <canvas id="wheelCanvas" width="360" height="360"></canvas>
+        <canvas id="wheelCanvas"></canvas>
       </div>
-      <button id="spinBtn" onclick="spinWheel()">⚡ SPIN</button>
+      <button id="spinBtn" onclick="spinWheel()">⚡ SPIN THE WHEEL</button>
     </div>
   </div>
 
-  <!-- STEP 3: Result -->
   <div id="resultSection">
     <div class="result-card" id="resultCard">
-      <div class="result-uni" id="resultUni">University</div>
-      <div class="result-grade-label">GRADE ACHIEVED</div>
-      <div class="result-grade" id="resultGrade">A+</div>
-      <div class="result-cg" id="resultCG">4.00</div>
-      <div class="result-emoji" id="resultEmoji">🏆</div>
-      <div class="result-msg" id="resultMsg">Absolutely legendary!</div>
-      <div class="result-sub" id="resultSub">Top of the class</div>
+      <div class="result-uni" id="resultUni"></div>
+      <div class="result-grade-label">Grade · CG This Semester</div>
+      <div class="result-row">
+        <div class="result-grade" id="resultGrade"></div>
+        <div class="result-cg" id="resultCG"></div>
+      </div>
+      <div class="result-emoji" id="resultEmoji"></div>
+      <div class="result-msg" id="resultMsg"></div>
+      <div class="result-sub" id="resultSub"></div>
+      <div class="result-troll" id="resultTroll"></div>
       <div class="result-actions">
-        <button class="btn btn-outline-cyan" onclick="saveImage()">📸 Screenshot &amp; Save</button>
-        <button class="btn btn-outline-purple" onclick="spinAgain()">🔄 Spin Again</button>
+        <button class="btn btn-share btn-full" onclick="shareImage()">📤 Share My CG Result</button>
+        <button class="btn btn-save" onclick="saveImage()">💾 Save Image</button>
+        <button class="btn btn-again" onclick="spinAgain()">🔄 Spin Again</button>
       </div>
     </div>
   </div>
@@ -225,461 +231,439 @@ footer{width:100%;text-align:center;padding:1.5rem 1rem;border-top:1px solid var
 <footer>
   <div class="footer-grid">
     <span>🖥️ Server: <b>ET</b></span>
-    <span>👨‍💻 Developed by: <b>akd &amp; nsu today</b></span>
-    <span>📅 <b>22 March 2026</b></span>
+    <span>👨‍💻 By: <b>akd &amp; nsu today</b></span>
+    <span>📅 <b>22 Mar 2026</b></span>
   </div>
-  <div class="footer-brand">LUCKY CG WHEEL · ET SERVER · v1.0</div>
+  <div class="footer-brand">LUCKY CG WHEEL · ET SERVER · v2.0</div>
 </footer>
 
-<canvas id="resultCanvas" width="680" height="420"></canvas>
+<canvas id="resultCanvas" style="display:none"></canvas>
 
 <script>
 /* ── STARS ── */
-(function(){
+(()=>{
   const s=document.getElementById('stars');
-  for(let i=0;i<80;i++){
-    const d=document.createElement('div');
-    d.className='star';
-    const sz=Math.random()*2+.5;
+  for(let i=0;i<55;i++){
+    const d=document.createElement('div');d.className='star';
+    const sz=Math.random()*1.8+.4;
     d.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s`;
     s.appendChild(d);
   }
 })();
 
-/* ── UNIVERSITIES DATA ── */
+/* ══ AUDIO ENGINE ══ */
+let audioCtx=null;
+const getAC=()=>{ if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)(); return audioCtx; };
+
+function tone(freq,type,dur,vol=.25,t0=0){
+  try{
+    const ac=getAC(),osc=ac.createOscillator(),g=ac.createGain();
+    osc.connect(g);g.connect(ac.destination);
+    osc.type=type;osc.frequency.value=freq;
+    g.gain.setValueAtTime(vol,ac.currentTime+t0);
+    g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+t0+dur);
+    osc.start(ac.currentTime+t0);osc.stop(ac.currentTime+t0+dur+.01);
+  }catch(e){}
+}
+function noise(dur,vol=.15,t0=0){
+  try{
+    const ac=getAC();
+    const buf=ac.createBuffer(1,Math.ceil(ac.sampleRate*dur),ac.sampleRate);
+    const d=buf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1);
+    const src=ac.createBufferSource();src.buffer=buf;
+    const g=ac.createGain();src.connect(g);g.connect(ac.destination);
+    g.gain.setValueAtTime(vol,ac.currentTime+t0);
+    g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+t0+dur);
+    src.start(ac.currentTime+t0);
+  }catch(e){}
+}
+
+const sndSelect=()=>{ tone(880,'sine',.14,.18); tone(1100,'sine',.1,.1,.07); };
+const sndTick=()=>{ noise(.028,.2); tone(180,'square',.028,.07); };
+const sndVictory=()=>{ [523,659,784,1047].forEach((f,i)=>tone(f,'sine',.3,.22,i*.11)); tone(1047,'sine',.55,.28,.48); };
+const sndGood=()=>{ tone(523,'sine',.18,.2); tone(659,'sine',.18,.2,.14); tone(784,'sine',.28,.2,.28); };
+const sndOkay=()=>{ tone(440,'sine',.18,.2); tone(392,'sine',.22,.18,.16); };
+const sndSad=()=>{ [392,370,349,311].forEach((f,i)=>tone(f,'sawtooth',.3,.14,i*.19)); };
+
+/* ══ UNIVERSITIES ══ */
 const UNIS={
-  NSU:{name:'North South University',system:'4.0 Scale (NSU)',
+  NSU:{name:'North South University',short:'NSU',system:'4.0 Scale (NSU)',
     grades:{'A+':4.0,'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.7,'C+':2.3,'C':2.0,'C-':1.7,'D+':1.3,'D':1.0,'F':0.0}},
-  BRAC:{name:'BRAC University',system:'4.0 Scale (BRAC)',
+  BRAC:{name:'BRAC University',short:'BRAC',system:'4.0 Scale (BRAC)',
     grades:{'A+':4.0,'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.7,'C+':2.3,'C':2.0,'C-':1.7,'D+':1.3,'D':1.0,'F':0.0}},
-  DIU:{name:'Daffodil International Univ.',system:'4.0 Scale (DIU)',
+  DIU:{name:'Daffodil International Univ.',short:'DIU',system:'4.0 Scale (DIU)',
     grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D+':1.75,'D':1.5,'F':0.0}},
-  AIUB:{name:'AIUB',system:'4.0 Scale (AIUB)',
+  AIUB:{name:'American Intl. Univ.-BD',short:'AIUB',system:'4.0 Scale (AIUB)',
     grades:{'A+':4.0,'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.7,'C+':2.3,'C':2.0,'C-':1.7,'D+':1.3,'D':1.0,'F':0.0}},
-  UIU:{name:'United International Univ.',system:'4.0 Scale (UIU)',
+  UIU:{name:'United International Univ.',short:'UIU',system:'4.0 Scale (UIU)',
     grades:{'A+':4.0,'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.7,'C+':2.3,'C':2.0,'C-':1.7,'D+':1.3,'D':1.0,'F':0.0}},
-  EWU:{name:'East West University',system:'4.0 Scale (EWU)',
+  EWU:{name:'East West University',short:'EWU',system:'4.0 Scale (EWU)',
     grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D':1.5,'D-':1.0,'F':0.0}},
-  IUT:{name:'Islamic Univ. of Technology',system:'4.0 Scale (IUT)',
+  IUT:{name:'Islamic Univ. of Technology',short:'IUT',system:'4.0 Scale (IUT)',
     grades:{'A+':4.0,'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.7,'C+':2.3,'C':2.0,'C-':1.7,'D+':1.3,'D':1.0,'F':0.0}},
-  DU:{name:'University of Dhaka',system:'4.0 Scale (DU)',
+  DU:{name:'University of Dhaka',short:'DU',system:'4.0 Scale (DU)',
     grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D':1.75,'D-':1.5,'F':0.0}},
-  BUET:{name:'BUET',system:'4.0 Scale (BUET)',
+  BUET:{name:'BUET',short:'BUET',system:'4.0 Scale (BUET)',
     grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D':1.75,'D-':1.5,'F':0.0}},
-  CUET:{name:'CUET',system:'4.0 Scale (CUET)',
+  CUET:{name:'CUET',short:'CUET',system:'4.0 Scale (CUET)',
     grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D':1.75,'D-':1.5,'F':0.0}},
-  SUST:{name:'SUST',system:'4.0 Scale (SUST)',
+  SUST:{name:'SUST',short:'SUST',system:'4.0 Scale (SUST)',
     grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D':1.75,'D-':1.5,'F':0.0}},
-  RU:{name:'University of Rajshahi',system:'4.0 Scale (RU)',
+  RU:{name:'University of Rajshahi',short:'RU',system:'4.0 Scale (RU)',
     grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D':1.75,'D-':1.5,'F':0.0}},
 };
 
-/* ── WHEEL CONFIG ── */
-const SEGMENTS=['A+','A','A-','B+','B','B-','C+','C','C-','D+','D','F'];
-const SEG_COLORS=[
-  '#ff4d6d','#ff6b35','#ff9f1c','#ffbf00','#a8ff3e',
-  '#00ff88','#00f0ff','#00b8ff','#4d79ff','#9b5de5','#c77dff','#ff6b9d'
-];
-const SEG_DARK=[
-  '#800020','#8b3a00','#8b5a00','#8b6d00','#4d8000',
-  '#007a3f','#007a85','#005c8a','#1a3a8a','#4a1a8a','#6a3a8a','#8a1a4a'
-];
-
-const canvas=document.getElementById('wheelCanvas');
-const ctx=canvas.getContext('2d');
-const DPR=Math.max(window.devicePixelRatio||1,4); // Force 4x for 4K quality
-const DISP=360; // display size in CSS px
-canvas.style.width=DISP+'px';
-canvas.style.height=DISP+'px';
-canvas.width=DISP*DPR;
-canvas.height=DISP*DPR;
-ctx.scale(DPR,DPR);
-const W=DISP,H=DISP,CX=W/2,CY=H/2,R=155;
-const numSeg=SEGMENTS.length,segAngle=(2*Math.PI)/numSeg;
-
-let currentAngle=0,isSpinning=false,targetSeg=-1;
-
-/* ── DRAW WHEEL ── */
-function drawWheel(){
-  ctx.clearRect(0,0,W,H);
-  ctx.save();
-  ctx.translate(CX,CY);
-  ctx.rotate(currentAngle);
-
-  for(let i=0;i<numSeg;i++){
-    const start=-Math.PI/2+i*segAngle;
-    const end=start+segAngle;
-    const mid=start+segAngle/2;
-
-    // Segment
-    ctx.beginPath();
-    ctx.moveTo(0,0);
-    ctx.arc(0,0,R,start,end);
-    ctx.closePath();
-
-    const grad=ctx.createRadialGradient(0,0,0,0,0,R);
-    grad.addColorStop(0,SEG_DARK[i]);
-    grad.addColorStop(1,SEG_COLORS[i]);
-    ctx.fillStyle=grad;
-    ctx.fill();
-
-    // Border
-    ctx.strokeStyle='rgba(0,0,0,.5)';
-    ctx.lineWidth=2;
-    ctx.stroke();
-
-    // Label
-    ctx.save();
-    ctx.rotate(mid);
-    ctx.textAlign='center';
-    ctx.textBaseline='middle';
-
-    // Shadow
-    ctx.shadowColor=SEG_COLORS[i];
-    ctx.shadowBlur=10;
-
-    ctx.fillStyle='#fff';
-    ctx.font='bold 17px Times New Roman, Times, serif';
-    ctx.fillText(SEGMENTS[i],R*.62,0);
-    ctx.restore();
-  }
-
-  // Center circle
-  ctx.beginPath();
-  ctx.arc(0,0,28,0,2*Math.PI);
-  const cg=ctx.createRadialGradient(0,0,0,0,0,28);
-  cg.addColorStop(0,'#1a1a3e');
-  cg.addColorStop(1,'#0d0d1f');
-  ctx.fillStyle=cg;
-  ctx.fill();
-  ctx.strokeStyle='rgba(0,240,255,.5)';
-  ctx.lineWidth=2;
-  ctx.stroke();
-
-  // Center icon
-  ctx.shadowColor='rgba(0,240,255,.8)';
-  ctx.shadowBlur=12;
-  ctx.fillStyle='#00f0ff';
-  ctx.font='bold italic 18px Times New Roman, Times, serif';
-  ctx.textAlign='center';
-  ctx.textBaseline='middle';
-  ctx.fillText('CG',0,0);
-
-  ctx.restore();
-
-  // Outer ring
-  ctx.beginPath();
-  ctx.arc(CX,CY,R+3,0,2*Math.PI);
-  ctx.strokeStyle='rgba(0,240,255,.3)';
-  ctx.lineWidth=3;
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.arc(CX,CY,R+8,0,2*Math.PI);
-  ctx.strokeStyle='rgba(180,79,255,.15)';
-  ctx.lineWidth=2;
-  ctx.stroke();
+/* ══ MESSAGES + TROLL ══ */
+function getMessage(gp){
+  if(gp>=4.0) return{emoji:'🏆',msg:'LEGENDARY! Dean\'s List confirmed!',sub:'You didn\'t just pass — you dominated.',troll:null,cls:'legendary'};
+  if(gp>=3.7) return{emoji:'🌟',msg:'Outstanding! You are elite.',sub:'Top tier student energy. Mad respect.',troll:null,cls:'legendary'};
+  if(gp>=3.3) return{emoji:'🎯',msg:'Excellent work! Solid semester.',sub:'You\'re ahead of the curve — keep going!',troll:null,cls:'great'};
+  if(gp>=3.0) return{emoji:'👍',msg:'Good job! Above average.',sub:'Consistent and steady. Don\'t slow down!',troll:null,cls:'great'};
+  if(gp>=2.7) return{emoji:'😌',msg:'Not bad at all!',sub:'You passed with dignity. Barely, but still.',troll:null,cls:'good'};
+  if(gp>=2.3) return{emoji:'😬',msg:'Oof... You can do better.',sub:'Average is temporary. Grind is forever.',troll:'Bro really said "I studied" and got this 💀',cls:'okay'};
+  if(gp>=2.0) return{emoji:'😰',msg:"That's... rough, buddy.",sub:'You passed. Technically. Academically? Debatable.',troll:'This CG couldn\'t clear a probation wave 😭',cls:'okay'};
+  if(gp>=1.5) return{emoji:'💀',msg:'Probation incoming. RIP.',sub:'Your academic advisor is calling you right now.',troll:'Bro attended 3 classes and expected a 4.0 😂',cls:'low'};
+  if(gp>=1.0) return{emoji:'☠️',msg:'This is a disaster.',sub:'Bro dropped out spiritually.',troll:'Even the attendance sheet forgot your name 💀',cls:'low'};
+  return{emoji:'⚰️',msg:'F in the chat. It\'s over.',sub:'Please contact your counselor. Immediately.',troll:'The university is printing your dropout papers rn 😭💀',cls:'low'};
 }
 
+/* ══ WHEEL ══ */
+const SEGS=['A+','A','A-','B+','B','B-','C+','C','C-','D+','D','F'];
+const COLORS=['#ff4d6d','#ff6b35','#ff9f1c','#ffbf00','#a8ff3e','#00ff88','#00f0ff','#00b8ff','#4d79ff','#9b5de5','#c77dff','#ff6b9d'];
+const DARK=['#800020','#8b3a00','#8b5a00','#8b6d00','#4d8000','#007a3f','#007a85','#005c8a','#1a3a8a','#4a1a8a','#6a3a8a','#8a1a4a'];
+const NS=SEGS.length,SA=(2*Math.PI)/NS;
+
+const cv=document.getElementById('wheelCanvas');
+const cx=cv.getContext('2d');
+const DPR=Math.max(window.devicePixelRatio||1,2);
+const DISP=Math.min(window.innerWidth-36,320);
+cv.style.width=DISP+'px';cv.style.height=DISP+'px';
+cv.width=DISP*DPR;cv.height=DISP*DPR;
+cx.scale(DPR,DPR);
+const CW=DISP,CH=DISP,CCX=CW/2,CCY=CH/2,R=CW/2-10;
+
+let angle=0,spinning=false,targetSeg=-1;
+
+function drawWheel(){
+  cx.clearRect(0,0,CW,CH);
+  cx.save();cx.translate(CCX,CCY);cx.rotate(angle);
+  for(let i=0;i<NS;i++){
+    const s=-Math.PI/2+i*SA,e=s+SA,m=s+SA/2;
+    cx.beginPath();cx.moveTo(0,0);cx.arc(0,0,R,s,e);cx.closePath();
+    const gr=cx.createRadialGradient(0,0,0,0,0,R);
+    gr.addColorStop(0,DARK[i]);gr.addColorStop(1,COLORS[i]);
+    cx.fillStyle=gr;cx.fill();
+    cx.strokeStyle='rgba(0,0,0,.4)';cx.lineWidth=1.5;cx.stroke();
+    cx.save();cx.rotate(m);cx.textAlign='center';cx.textBaseline='middle';
+    cx.shadowColor=COLORS[i];cx.shadowBlur=7;cx.fillStyle='#fff';
+    const fs=Math.max(11,Math.floor(R*.115));
+    cx.font=`bold ${fs}px 'Times New Roman',Times,serif`;
+    cx.fillText(SEGS[i],R*.63,0);cx.restore();
+  }
+  // Hub
+  cx.beginPath();cx.arc(0,0,R*.155,0,2*Math.PI);
+  const hub=cx.createRadialGradient(0,0,0,0,0,R*.155);
+  hub.addColorStop(0,'#1e1e42');hub.addColorStop(1,'#08080f');
+  cx.fillStyle=hub;cx.fill();
+  cx.strokeStyle='rgba(0,240,255,.45)';cx.lineWidth=1.5;cx.stroke();
+  cx.shadowColor='rgba(0,240,255,.85)';cx.shadowBlur=9;
+  cx.fillStyle='#00f0ff';
+  cx.font=`bold italic ${Math.floor(R*.1)}px 'Times New Roman',Times,serif`;
+  cx.textAlign='center';cx.textBaseline='middle';cx.fillText('CG',0,0);
+  cx.restore();
+  // Outer rings
+  cx.beginPath();cx.arc(CCX,CCY,R+2,0,2*Math.PI);
+  cx.strokeStyle='rgba(0,240,255,.25)';cx.lineWidth=2;cx.stroke();
+  cx.beginPath();cx.arc(CCX,CCY,R+6,0,2*Math.PI);
+  cx.strokeStyle='rgba(180,79,255,.1)';cx.lineWidth=1.5;cx.stroke();
+}
 drawWheel();
 
-/* ── GRADE INFO PILLS ── */
-const uniSelect=document.getElementById('uniSelect');
-const gradeInfo=document.getElementById('gradeInfo');
-
-uniSelect.addEventListener('change',function(){
-  const key=this.value;
-  gradeInfo.innerHTML='';
-  if(!key)return;
-  const uni=UNIS[key];
-  Object.entries(uni.grades).forEach(([g,p])=>{
-    const pill=document.createElement('div');
-    pill.className='grade-pill';
-    pill.innerHTML=`${g}<b>→${p.toFixed(2)}</b>`;
-    gradeInfo.appendChild(pill);
+/* ── Grade pills ── */
+const uniSel=document.getElementById('uniSelect');
+const gInfo=document.getElementById('gradeInfo');
+uniSel.addEventListener('change',function(){
+  gInfo.innerHTML='';
+  if(!this.value)return;
+  sndSelect();
+  Object.entries(UNIS[this.value].grades).forEach(([g,p])=>{
+    const el=document.createElement('div');el.className='grade-pill';
+    el.innerHTML=`${g} <b>→${p.toFixed(2)}</b>`;gInfo.appendChild(el);
   });
 });
 
-/* ── SPIN LOGIC ── */
-let spinStart=0,spinDuration=4500,spinFrom=0,spinTo=0;
-
-function easeOut(t){return 1-Math.pow(1-t,4)}
+/* ══ SPIN ══ */
+let t0=null,dur=4800,from=0,to=0,lastTick=0;
+const ease=t=>1-Math.pow(1-t,4);
 
 function spinWheel(){
-  if(isSpinning)return;
-  const key=uniSelect.value;
-  if(!key){uniSelect.style.borderColor='var(--pink)';uniSelect.focus();
-    setTimeout(()=>uniSelect.style.borderColor='',1200);return;}
-
+  if(spinning)return;
+  const key=uniSel.value;
+  if(!key){
+    uniSel.style.borderColor='var(--pink)';uniSel.focus();
+    setTimeout(()=>uniSel.style.borderColor='',1200);
+    showToast('⚠️ Select your university first!');return;
+  }
   document.getElementById('resultSection').style.display='none';
-  isSpinning=true;
-  document.getElementById('spinBtn').disabled=true;
+  spinning=true;document.getElementById('spinBtn').disabled=true;
 
-  // Pick random segment (weight: rare F, rare perfect)
-  const weights=[6,6,6,7,8,7,7,6,5,4,3,2]; // A+ weighted down slightly for fun
+  const weights=[6,6,5,7,8,7,7,6,5,4,3,2];
   const total=weights.reduce((a,b)=>a+b,0);
   let r=Math.random()*total,chosen=0;
   for(let i=0;i<weights.length;i++){r-=weights[i];if(r<=0){chosen=i;break;}}
   targetSeg=chosen;
 
-  // Target angle: land center of chosen segment at pointer
-  const targetMod=((2*Math.PI-(chosen+.5)*segAngle)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
-  const curMod=((currentAngle%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
-  let diff=targetMod-curMod;
-  if(diff<0)diff+=2*Math.PI;
-
-  spinFrom=currentAngle;
-  spinTo=currentAngle+6*2*Math.PI+diff;
-
-  spinStart=null;
-  requestAnimationFrame(animateSpin);
+  const tMod=((2*Math.PI-(chosen+.5)*SA)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
+  const cMod=((angle%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
+  let diff=tMod-cMod;if(diff<0)diff+=2*Math.PI;
+  from=angle;to=angle+7*2*Math.PI+diff;
+  lastTick=angle;t0=null;
+  requestAnimationFrame(doSpin);
 }
 
-function animateSpin(ts){
-  if(!spinStart)spinStart=ts;
-  const elapsed=ts-spinStart;
-  const t=Math.min(elapsed/spinDuration,1);
-  currentAngle=spinFrom+(spinTo-spinFrom)*easeOut(t);
+function doSpin(ts){
+  if(!t0)t0=ts;
+  const elapsed=ts-t0,t=Math.min(elapsed/dur,1);
+  angle=from+(to-from)*ease(t);
+  const crossed=Math.floor((angle-lastTick)/SA);
+  if(crossed>0&&t<.9&&(1-ease(t))>.04){sndTick();lastTick=angle-((angle-lastTick)%SA);}
   drawWheel();
-  if(t<1){requestAnimationFrame(animateSpin)}
-  else{
-    currentAngle=spinTo;
-    isSpinning=false;
-    document.getElementById('spinBtn').disabled=false;
-    showResult();
-  }
+  if(t<1){requestAnimationFrame(doSpin);}
+  else{angle=to;spinning=false;document.getElementById('spinBtn').disabled=false;showResult();}
 }
 
-/* ── MESSAGES ── */
-function getMessage(cg){
-  if(cg>=4.0) return{emoji:'🏆',msg:'Absolutely Legendary!',sub:'Dean\'s List material — you crushed it!',cls:'legendary'};
-  if(cg>=3.7) return{emoji:'🌟',msg:'Outstanding Performance!',sub:'You\'re in the top tier, keep it up!',cls:'great'};
-  if(cg>=3.3) return{emoji:'🎯',msg:'Excellent Work!',sub:'Solid results — you should be proud!',cls:'great'};
-  if(cg>=3.0) return{emoji:'👍',msg:'Good Job!',sub:'Above average — stay consistent!',cls:'good'};
-  if(cg>=2.7) return{emoji:'💪',msg:'Not Bad At All!',sub:'Room to grow — push harder next sem!',cls:'good'};
-  if(cg>=2.3) return{emoji:'😤',msg:'You Can Do Better!',sub:'Grind time — next semester, go harder!',cls:'okay'};
-  if(cg>=2.0) return{emoji:'📚',msg:'Time To Hit The Books!',sub:'Passing, but barely — focus up!',cls:'okay'};
-  if(cg>=1.0) return{emoji:'😅',msg:'Ouch... That Hurts!',sub:'Probation territory — serious turnaround needed!',cls:'low'};
-  return{emoji:'💀',msg:'F in the Chat...',sub:'Time to reconsider life choices 😂',cls:'low'};
-}
-
-/* ── SHOW RESULT ── */
+/* ══ RESULT ══ */
 function showResult(){
-  const key=uniSelect.value;
-  const uni=UNIS[key];
-  const grade=SEGMENTS[targetSeg];
-  const gp=uni.grades[grade]??0;
-
-  const {emoji,msg,sub,cls}=getMessage(gp);
-
+  const key=uniSel.value,uni=UNIS[key];
+  const grade=SEGS[targetSeg],gp=uni.grades[grade]??0;
+  const {emoji,msg,sub,troll,cls}=getMessage(gp);
   const card=document.getElementById('resultCard');
   card.className='result-card '+cls;
-
   document.getElementById('resultUni').textContent=uni.name;
   document.getElementById('resultGrade').textContent=grade;
   document.getElementById('resultCG').textContent=gp.toFixed(2);
   document.getElementById('resultEmoji').textContent=emoji;
   document.getElementById('resultMsg').textContent=msg;
   document.getElementById('resultSub').textContent=sub;
-
+  const trollEl=document.getElementById('resultTroll');
+  trollEl.textContent=troll||'';
+  trollEl.style.display=troll?'block':'none';
   const sec=document.getElementById('resultSection');
   sec.style.display='block';
-  sec.scrollIntoView({behavior:'smooth',block:'start'});
-
-  if(gp>=3.7)launchConfetti();
+  setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
+  if(gp>=3.7){sndVictory();confetti();}
+  else if(gp>=3.0)sndGood();
+  else if(gp>=2.5)sndOkay();
+  else sndSad();
 }
 
-/* ── CONFETTI ── */
-function launchConfetti(){
-  const colors=['#00f0ff','#b44fff','#ffd700','#00ff88','#ff3399','#ff6b35'];
-  for(let i=0;i<60;i++){
-    const d=document.createElement('div');
-    d.className='confetti-piece';
-    d.style.cssText=`
-      left:${Math.random()*100}vw;top:-10px;
-      background:${colors[Math.floor(Math.random()*colors.length)]};
+/* ══ CONFETTI ══ */
+function confetti(){
+  const cols=['#00f0ff','#b44fff','#ffd700','#00ff88','#ff3399','#ff6b35'];
+  for(let i=0;i<50;i++){
+    const d=document.createElement('div');d.className='cp';
+    d.style.cssText=`left:${Math.random()*100}vw;top:-8px;
+      background:${cols[Math.floor(Math.random()*cols.length)]};
       transform:rotate(${Math.random()*360}deg);
-      animation:fall ${1.5+Math.random()*2}s linear forwards;
-      animation-delay:${Math.random()*.5}s`;
-    document.body.appendChild(d);
-    setTimeout(()=>d.remove(),4000);
+      animation:fall ${1.5+Math.random()*2}s linear ${Math.random()*.5}s forwards`;
+    document.body.appendChild(d);setTimeout(()=>d.remove(),4000);
   }
 }
+const cs=document.createElement('style');
+cs.textContent=`@keyframes fall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}`;
+document.head.appendChild(cs);
 
-const style=document.createElement('style');
-style.textContent=`
-  @keyframes fall{
-    0%{transform:translateY(0) rotate(0deg);opacity:1}
-    100%{transform:translateY(100vh) rotate(720deg);opacity:0}
-  }`;
-document.head.appendChild(style);
+/* ══ BUILD SHARE IMAGE (1080×1080) ══ */
+function buildImg(){
+  const key=uniSel.value;if(!key||targetSeg<0)return null;
+  const uni=UNIS[key],grade=SEGS[targetSeg],gp=uni.grades[grade]??0;
+  const {emoji,msg,sub,troll,cls}=getMessage(gp);
+  const rc=document.getElementById('resultCanvas');
+  const SZ=1080;rc.width=SZ;rc.height=SZ;
+  const c=rc.getContext('2d');
+  const TNR="'Times New Roman',Times,serif";
+  const accent=cls==='legendary'?'#ffd700':cls==='great'?'#00f0ff':cls==='good'?'#00ff88':cls==='okay'?'#b44fff':'#ff3399';
+  const rgb=cls==='legendary'?'255,215,0':cls==='great'?'0,240,255':cls==='good'?'0,255,136':cls==='okay'?'180,79,255':'255,51,153';
 
-/* ── SPIN AGAIN ── */
+  // BG
+  const bg=c.createLinearGradient(0,0,SZ,SZ);
+  bg.addColorStop(0,'#03030a');bg.addColorStop(.5,'#0b0b1c');bg.addColorStop(1,'#05050e');
+  c.fillStyle=bg;c.fillRect(0,0,SZ,SZ);
+
+  // Dot grid
+  c.fillStyle=`rgba(${rgb},.022)`;
+  for(let x=27;x<SZ;x+=54)for(let y=27;y<SZ;y+=54){c.beginPath();c.arc(x,y,2,0,2*Math.PI);c.fill();}
+
+  // Center glow
+  c.save();c.globalAlpha=.1;
+  const cglow=c.createRadialGradient(SZ/2,SZ/2,0,SZ/2,SZ/2,360);
+  cglow.addColorStop(0,accent);cglow.addColorStop(1,'transparent');
+  c.fillStyle=cglow;c.fillRect(0,0,SZ,SZ);c.restore();
+
+  // Border
+  c.strokeStyle=`rgba(${rgb},.2)`;c.lineWidth=3;c.strokeRect(22,22,SZ-44,SZ-44);
+
+  // Top accent bar
+  const tb=c.createLinearGradient(0,0,SZ,0);
+  tb.addColorStop(0,'transparent');tb.addColorStop(.5,accent);tb.addColorStop(1,'transparent');
+  c.fillStyle=tb;c.fillRect(0,0,SZ,5);
+
+  c.textAlign='center';c.textBaseline='middle';
+
+  // ── Header band bg ──
+  const hbg=c.createLinearGradient(0,0,0,130);
+  hbg.addColorStop(0,`rgba(${rgb},.1)`);hbg.addColorStop(1,'transparent');
+  c.fillStyle=hbg;c.fillRect(0,0,SZ,130);
+
+  // ET SERVER label
+  c.font=`italic 26px ${TNR}`;c.fillStyle=`rgba(${rgb},.65)`;
+  c.fillText('ET SERVER  ·  LUCKY CG WHEEL',SZ/2,36);
+
+  // Date top-right
+  c.textAlign='right';c.font=`20px ${TNR}`;c.fillStyle='rgba(130,130,185,.55)';
+  c.fillText('22 MARCH 2026',SZ-36,36);c.textAlign='center';
+
+  // Uni badge circle
+  c.beginPath();c.arc(SZ/2,96,34,0,2*Math.PI);
+  c.fillStyle=`rgba(${rgb},.09)`;c.fill();
+  c.strokeStyle=`rgba(${rgb},.35)`;c.lineWidth=2;c.stroke();
+  c.font=`bold 22px ${TNR}`;c.fillStyle=accent;
+  c.fillText(uni.short||key,SZ/2,96);
+
+  // Divider helper
+  const div=(y,a=.1)=>{
+    const d=c.createLinearGradient(0,0,SZ,0);
+    d.addColorStop(0,'transparent');d.addColorStop(.5,`rgba(255,255,255,${a})`);d.addColorStop(1,'transparent');
+    c.fillStyle=d;c.fillRect(60,y,SZ-120,1.5);
+  };
+
+  // Uni name
+  c.font=`bold 28px ${TNR}`;c.fillStyle='rgba(195,200,235,.85)';
+  c.fillText(uni.name.toUpperCase(),SZ/2,146);
+
+  div(168,.1);
+
+  // Emoji
+  c.font='96px serif';c.fillText(emoji,SZ/2,230);
+
+  // Grade + CG label
+  c.font=`italic 22px ${TNR}`;c.fillStyle='rgba(120,125,175,.6)';
+  c.fillText('GRADE  ·  SEMESTER CG',SZ/2,290);
+
+  // Grade letter (left) + CG number (right) — NO OVERLAP
+  c.shadowColor=accent;c.shadowBlur=30;c.fillStyle=accent;
+
+  c.textAlign='right';c.textBaseline='middle';
+  c.font=`bold 155px ${TNR}`;
+  c.fillText(grade,SZ/2-24,400);
+
+  c.shadowBlur=0;
+  c.strokeStyle='rgba(255,255,255,.12)';c.lineWidth=2;
+  c.beginPath();c.moveTo(SZ/2,330);c.lineTo(SZ/2,470);c.stroke();
+
+  c.shadowColor=accent;c.shadowBlur=30;c.fillStyle=accent;
+  c.textAlign='left';c.textBaseline='middle';
+  c.font=`bold 155px ${TNR}`;
+  c.fillText(gp.toFixed(2),SZ/2+24,400);
+  c.shadowBlur=0;
+
+  div(495,.09);
+
+  // Message
+  c.textAlign='center';c.textBaseline='middle';
+  c.font=`bold italic 40px ${TNR}`;c.fillStyle='rgba(225,230,255,.94)';
+  c.fillText(msg,SZ/2,545);
+
+  // Sub
+  c.font=`26px ${TNR}`;c.fillStyle='rgba(135,140,188,.72)';
+  c.fillText(sub,SZ/2,592);
+
+  // Troll box
+  let nextY=650;
+  if(troll){
+    const bx=60,bw=SZ-120,bh=76,by=625;
+    c.save();
+    c.fillStyle='rgba(255,51,153,.06)';
+    c.beginPath();c.roundRect(bx,by,bw,bh,12);c.fill();
+    c.strokeStyle='rgba(255,51,153,.2)';c.lineWidth=1.5;c.stroke();
+    c.restore();
+    c.font=`bold italic 26px ${TNR}`;c.fillStyle='#ff3399';
+    c.fillText(troll,SZ/2,by+bh/2);
+    nextY=730;
+  }
+
+  div(nextY,.08);
+
+  // Grade system
+  c.font=`italic 22px ${TNR}`;c.fillStyle='rgba(110,110,165,.55)';
+  c.fillText(uni.system,SZ/2,nextY+46);
+
+  div(nextY+90,.06);
+
+  // Credit
+  c.font=`italic 20px ${TNR}`;c.fillStyle='rgba(100,100,155,.48)';
+  c.fillText('Developed by akd & nsu today  ·  ET Server  ·  Lucky CG Wheel',SZ/2,nextY+128);
+
+  // Share hint
+  c.font=`19px ${TNR}`;c.fillStyle=`rgba(${rgb},.38)`;
+  c.fillText('🎡 Spin your luck — ET Server Lucky CG Wheel',SZ/2,nextY+162);
+
+  // Bottom bar
+  const bb=c.createLinearGradient(0,0,SZ,0);
+  bb.addColorStop(0,'transparent');bb.addColorStop(.5,accent);bb.addColorStop(1,'transparent');
+  c.fillStyle=bb;c.fillRect(0,SZ-5,SZ,5);
+
+  return {rc,grade,gp};
+}
+
+/* ══ SHARE ══ */
+async function shareImage(){
+  const key=uniSel.value;
+  if(!key||targetSeg<0){showToast('⚠️ Spin the wheel first!');return;}
+  const res=buildImg();if(!res)return;
+  const {rc,grade,gp}=res;
+  const uni=UNIS[key];
+  rc.toBlob(async(blob)=>{
+    const file=new File([blob],`CG_${grade.replace('+','plus')}_${gp.toFixed(2)}_ET.png`,{type:'image/png'});
+    if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+      try{
+        await navigator.share({
+          title:`My CG: ${gp.toFixed(2)} (${grade}) — ET Lucky CG Wheel`,
+          text:`I got ${grade} = ${gp.toFixed(2)} CG at ${uni.name}! 🎡 Try spinning your luck on ET Server's Lucky CG Wheel!`,
+          files:[file]
+        });
+      }catch(e){if(e.name!=='AbortError'){dlImg(rc,grade,gp);showToast('📥 Saved! Share from your gallery.');}}
+    }else{dlImg(rc,grade,gp);showToast('📲 Image saved! Share it on your story.');}
+  },'image/png');
+}
+
+/* ══ SAVE ══ */
+function saveImage(){
+  const key=uniSel.value;
+  if(!key||targetSeg<0){showToast('⚠️ Spin the wheel first!');return;}
+  const res=buildImg();if(!res)return;
+  dlImg(res.rc,res.grade,res.gp);
+  showToast('✅ Saved to your device!');
+}
+
+function dlImg(rc,grade,gp){
+  const a=document.createElement('a');
+  a.download=`CG_${grade.replace('+','plus')}_${gp.toFixed(2)}_ET.png`;
+  a.href=rc.toDataURL('image/png');a.click();
+}
+
+/* ══ SPIN AGAIN ══ */
 function spinAgain(){
   document.getElementById('resultSection').style.display='none';
-  document.querySelector('.wheel-wrap').scrollIntoView({behavior:'smooth'});
+  document.querySelector('.wheel-wrap').scrollIntoView({behavior:'smooth',block:'center'});
 }
 
-/* ── SAVE IMAGE ── */
-function saveImage(){
-  const key=uniSelect.value;
-  if(!key)return;
-  const uni=UNIS[key];
-  const grade=SEGMENTS[targetSeg];
-  const gp=uni.grades[grade]??0;
-  const {emoji,msg,cls}=getMessage(gp);
-
-  // 2x HD canvas (1360x840 actual pixels, displayed as 680x420)
-  const rc=document.getElementById('resultCanvas');
-  const S=2; // scale factor for HD
-  const CW=680,CH=500;
-  rc.width=CW*S;
-  rc.height=CH*S;
-  rc.style.width=CW+'px';
-  rc.style.height=CH+'px';
-  const rctx=rc.getContext('2d');
-  rctx.scale(S,S);
-  const W=CW,H=CH;
-
-  const accentColor=cls==='legendary'?'#ffd700':cls==='great'?'#00f0ff':cls==='good'?'#00ff88':cls==='okay'?'#b44fff':'#ff3399';
-  const TNR="'Times New Roman', Times, serif";
-
-  // Background
-  const bgGrad=rctx.createLinearGradient(0,0,W,H);
-  bgGrad.addColorStop(0,'#06060f');
-  bgGrad.addColorStop(.5,'#0d0d1f');
-  bgGrad.addColorStop(1,'#080812');
-  rctx.fillStyle=bgGrad;
-  rctx.beginPath();
-  rctx.roundRect(0,0,W,H,16);
-  rctx.fill();
-
-  // Grid dots
-  rctx.fillStyle='rgba(0,240,255,.035)';
-  for(let x=20;x<W;x+=40)for(let y=20;y<H;y+=40){
-    rctx.beginPath();rctx.arc(x,y,1.2,0,2*Math.PI);rctx.fill();
-  }
-
-  // Glow behind center
-  rctx.save();
-  rctx.globalAlpha=.07;
-  const glowGrad=rctx.createRadialGradient(W/2,H/2,0,W/2,H/2,180);
-  glowGrad.addColorStop(0,accentColor);
-  glowGrad.addColorStop(1,'transparent');
-  rctx.fillStyle=glowGrad;
-  rctx.fillRect(0,0,W,H);
-  rctx.restore();
-
-  // Top accent line
-  const lineGrad=rctx.createLinearGradient(0,0,W,0);
-  lineGrad.addColorStop(0,'transparent');
-  lineGrad.addColorStop(.5,accentColor);
-  lineGrad.addColorStop(1,'transparent');
-  rctx.fillStyle=lineGrad;
-  rctx.fillRect(0,0,W,3);
-
-  // ── ROW 1: Server tag left, date right ──
-  rctx.font=`italic 13px ${TNR}`;
-  rctx.fillStyle='rgba(100,100,160,.75)';
-  rctx.textAlign='left';
-  rctx.textBaseline='middle';
-  rctx.fillText('ET SERVER · LUCKY CG WHEEL',28,22);
-  rctx.textAlign='right';
-  rctx.fillText('22 MARCH 2026',W-28,22);
-
-  // ── Thin separator ──
-  rctx.strokeStyle='rgba(255,255,255,.06)';
-  rctx.lineWidth=1;
-  rctx.beginPath();rctx.moveTo(28,42);rctx.lineTo(W-28,42);rctx.stroke();
-
-  // ── ROW 2: University name ──
-  rctx.textAlign='center';
-  rctx.textBaseline='middle';
-  rctx.font=`bold 15px ${TNR}`;
-  rctx.fillStyle='rgba(170,175,220,.85)';
-  rctx.fillText(uni.name.toUpperCase(),W/2,62);
-
-  // ── ROW 3: "SEMESTER CG RESULT" label ──
-  rctx.font=`italic 12px ${TNR}`;
-  rctx.fillStyle='rgba(100,100,160,.7)';
-  rctx.fillText('SEMESTER CG RESULT',W/2,84);
-
-  // ── Thin separator ──
-  rctx.strokeStyle='rgba(255,255,255,.05)';
-  rctx.beginPath();rctx.moveTo(80,100);rctx.lineTo(W-80,100);rctx.stroke();
-
-  // ── ROW 4: Emoji ──
-  rctx.font='44px serif';
-  rctx.textBaseline='middle';
-  rctx.fillText(emoji,W/2,136);
-
-  // ── ROW 5: Grade Letter + CG on same line, well spaced ──
-  rctx.shadowColor=accentColor;
-  rctx.shadowBlur=18;
-  rctx.fillStyle=accentColor;
-
-  // Grade letter — left of center
-  rctx.textAlign='right';
-  rctx.font=`bold 72px ${TNR}`;
-  rctx.textBaseline='middle';
-  rctx.fillText(grade,W/2-18,230);
-
-  // Vertical divider
-  rctx.shadowBlur=0;
-  rctx.strokeStyle='rgba(255,255,255,.15)';
-  rctx.lineWidth=1.5;
-  rctx.beginPath();rctx.moveTo(W/2,195);rctx.lineTo(W/2,265);rctx.stroke();
-
-  // CG number — right of center
-  rctx.shadowColor=accentColor;
-  rctx.shadowBlur=18;
-  rctx.fillStyle=accentColor;
-  rctx.textAlign='left';
-  rctx.font=`bold 72px ${TNR}`;
-  rctx.fillText(gp.toFixed(2),W/2+18,230);
-
-  rctx.shadowBlur=0;
-
-  // ── Divider ──
-  rctx.strokeStyle='rgba(255,255,255,.07)';
-  rctx.lineWidth=1;
-  rctx.beginPath();rctx.moveTo(50,285);rctx.lineTo(W-50,285);rctx.stroke();
-
-  // ── ROW 6: Message ──
-  rctx.textAlign='center';
-  rctx.textBaseline='middle';
-  rctx.font=`bold italic 22px ${TNR}`;
-  rctx.fillStyle='rgba(220,225,255,.92)';
-  rctx.fillText(msg,W/2,318);
-
-  // ── ROW 7: Grade system ──
-  rctx.font=`13px ${TNR}`;
-  rctx.fillStyle='rgba(100,100,160,.65)';
-  rctx.fillText(uni.system,W/2,348);
-
-  // ── Thin separator ──
-  rctx.strokeStyle='rgba(255,255,255,.04)';
-  rctx.beginPath();rctx.moveTo(80,368);rctx.lineTo(W-80,368);rctx.stroke();
-
-  // ── ROW 8: Credit ──
-  rctx.font=`italic 12px ${TNR}`;
-  rctx.fillStyle='rgba(100,100,160,.55)';
-  rctx.fillText('Developed by akd & nsu today · ET Server',W/2,390);
-
-  // Bottom accent line
-  const lineGrad2=rctx.createLinearGradient(0,0,W,0);
-  lineGrad2.addColorStop(0,'transparent');
-  lineGrad2.addColorStop(.5,accentColor);
-  lineGrad2.addColorStop(1,'transparent');
-  rctx.fillStyle=lineGrad2;
-  rctx.fillRect(0,H-3,W,3);
-
-  // Download
-
-  const link=document.createElement('a');
-  link.download=`CG_${grade.replace('+','plus')}_${gp.toFixed(2)}_ET.png`;
-  link.href=rc.toDataURL('image/png');
-  link.click();
+/* ══ TOAST ══ */
+let ttimer=null;
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  if(ttimer)clearTimeout(ttimer);
+  ttimer=setTimeout(()=>t.classList.remove('show'),2600);
 }
 </script>
 </body>
