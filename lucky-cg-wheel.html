@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎡 Lucky CG Wheel · ET Server</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#06060f;--panel:#0d0d1f;--border:#1c1c3a;
+  --cyan:#00f0ff;--purple:#b44fff;--gold:#ffd700;
+  --green:#00ff88;--pink:#ff3399;--text:#dde1ff;--muted:#5a5a8a;
+}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden}
+
+/* ── STARS ── */
+#stars{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s infinite alternate}
+@keyframes twinkle{0%{opacity:.1}100%{opacity:.8}}
+
+/* ── GRID BG ── */
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(0,240,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,240,255,.03) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;z-index:0}
+
+/* ── HEADER ── */
+header{width:100%;text-align:center;padding:2.5rem 1rem 1rem;position:relative;z-index:1}
+.logo-tag{font-family:'Orbitron',monospace;font-size:.7rem;letter-spacing:4px;
+  color:var(--cyan);text-transform:uppercase;opacity:.7;margin-bottom:.5rem}
+h1{font-family:'Orbitron',monospace;font-size:clamp(1.6rem,5vw,2.8rem);
+  font-weight:900;letter-spacing:2px;line-height:1.1;
+  background:linear-gradient(135deg,var(--cyan),var(--purple),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{font-size:1rem;color:var(--muted);letter-spacing:3px;margin-top:.4rem;font-weight:600}
+
+/* ── MAIN ── */
+main{width:100%;max-width:520px;padding:1rem 1.2rem 2rem;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:1.2rem}
+
+/* ── STEP CARD ── */
+.step-card{width:100%;background:var(--panel);border:1px solid var(--border);
+  border-radius:16px;padding:1.2rem 1.4rem;position:relative;overflow:hidden}
+.step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),transparent)}
+.step-label{font-family:'Orbitron',monospace;font-size:.65rem;letter-spacing:3px;
+  color:var(--purple);text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem}
+.step-label span{width:18px;height:18px;background:var(--purple);border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;font-size:.6rem;color:#fff;font-weight:700}
+
+/* ── SELECT ── */
+select{width:100%;background:#0a0a1a;border:1px solid var(--border);color:var(--text);
+  font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:600;padding:.7rem 1rem;
+  border-radius:10px;outline:none;cursor:pointer;transition:border .2s,box-shadow .2s;
+  appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300f0ff' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center}
+select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,240,255,.1)}
+select option{background:#0d0d1f}
+
+.grade-info{margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.4rem}
+.grade-pill{background:#0a0a1a;border:1px solid var(--border);border-radius:20px;
+  padding:.2rem .6rem;font-size:.75rem;font-weight:600;color:var(--muted)}
+.grade-pill b{color:var(--cyan)}
+
+/* ── WHEEL SECTION ── */
+.wheel-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem;width:100%}
+.wheel-container{position:relative;display:inline-block}
+#wheelCanvas{border-radius:50%;cursor:pointer;display:block;
+  filter:drop-shadow(0 0 20px rgba(0,240,255,.3)) drop-shadow(0 0 40px rgba(180,79,255,.2))}
+.pointer{position:absolute;top:-18px;left:50%;transform:translateX(-50%);
+  width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;
+  border-top:28px solid var(--gold);filter:drop-shadow(0 0 6px var(--gold));z-index:5}
+.pointer::after{content:'';position:absolute;top:-32px;left:-6px;width:12px;height:10px;
+  background:var(--gold);border-radius:2px}
+.wheel-glow{position:absolute;inset:-15px;border-radius:50%;
+  background:radial-gradient(ellipse,transparent 55%,rgba(0,240,255,.08) 100%);
+  pointer-events:none;animation:glowPulse 2s infinite alternate}
+@keyframes glowPulse{0%{opacity:.5}100%{opacity:1}}
+
+/* ── SPIN BUTTON ── */
+#spinBtn{font-family:'Orbitron',monospace;font-weight:700;font-size:1.1rem;
+  letter-spacing:2px;padding:.9rem 3rem;border:none;border-radius:12px;cursor:pointer;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));color:#000;
+  position:relative;overflow:hidden;transition:transform .15s,box-shadow .2s;
+  box-shadow:0 0 20px rgba(0,240,255,.4),0 0 40px rgba(180,79,255,.2)}
+#spinBtn:hover:not(:disabled){transform:scale(1.05);box-shadow:0 0 30px rgba(0,240,255,.6),0 0 60px rgba(180,79,255,.3)}
+#spinBtn:active:not(:disabled){transform:scale(.97)}
+#spinBtn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+#spinBtn::before{content:'';position:absolute;top:-50%;left:-60%;width:40%;height:200%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
+  transform:skewX(-20deg);animation:sheen 3s infinite}
+@keyframes sheen{0%{left:-60%}100%{left:160%}}
+
+/* ── RESULT ── */
+#resultSection{width:100%;display:none;animation:slideUp .5s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.result-card{background:var(--panel);border:1px solid;border-radius:20px;padding:1.8rem;text-align:center;position:relative;overflow:hidden}
+.result-card.legendary{border-color:var(--gold);box-shadow:0 0 30px rgba(255,215,0,.2)}
+.result-card.great{border-color:var(--cyan);box-shadow:0 0 30px rgba(0,240,255,.15)}
+.result-card.good{border-color:var(--green);box-shadow:0 0 20px rgba(0,255,136,.1)}
+.result-card.okay{border-color:var(--purple);box-shadow:0 0 20px rgba(180,79,255,.1)}
+.result-card.low{border-color:var(--pink);box-shadow:0 0 20px rgba(255,51,153,.1)}
+.result-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.result-card.legendary::before{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.result-card.great::before{background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.result-card.good::before{background:linear-gradient(90deg,transparent,var(--green),transparent)}
+.result-card.okay::before{background:linear-gradient(90deg,transparent,var(--purple),transparent)}
+.result-card.low::before{background:linear-gradient(90deg,transparent,var(--pink),transparent)}
+.result-uni{font-size:.85rem;font-weight:600;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:.4rem}
+.result-grade-label{font-size:1rem;font-weight:600;color:var(--muted);margin-bottom:.3rem}
+.result-grade{font-family:'Orbitron',monospace;font-size:3rem;font-weight:900;line-height:1}
+.result-card.legendary .result-grade{color:var(--gold);text-shadow:0 0 20px var(--gold)}
+.result-card.great .result-grade{color:var(--cyan);text-shadow:0 0 20px var(--cyan)}
+.result-card.good .result-grade{color:var(--green);text-shadow:0 0 20px var(--green)}
+.result-card.okay .result-grade{color:var(--purple);text-shadow:0 0 20px var(--purple)}
+.result-card.low .result-grade{color:var(--pink);text-shadow:0 0 20px var(--pink)}
+.result-cg{font-family:'Orbitron',monospace;font-size:5rem;font-weight:900;line-height:1.1;margin:.2rem 0}
+.result-card.legendary .result-cg{background:linear-gradient(135deg,#ffd700,#ffaa00,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.result-card.great .result-cg{background:linear-gradient(135deg,var(--cyan),#00a8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.result-card.good .result-cg{background:linear-gradient(135deg,var(--green),#00cc66);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.result-card.okay .result-cg{background:linear-gradient(135deg,var(--purple),#9933ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.result-card.low .result-cg{background:linear-gradient(135deg,var(--pink),#ff0066);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.result-msg{font-size:1.1rem;font-weight:600;margin-top:.6rem;color:var(--text)}
+.result-sub{font-size:.85rem;color:var(--muted);margin-top:.2rem}
+.result-emoji{font-size:2rem;margin:.4rem 0}
+
+.result-actions{display:flex;gap:.8rem;margin-top:1.2rem;flex-wrap:wrap;justify-content:center}
+.btn{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:1px;
+  padding:.7rem 1.4rem;border-radius:10px;border:1px solid;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.4rem}
+.btn-outline-cyan{background:transparent;border-color:var(--cyan);color:var(--cyan)}
+.btn-outline-cyan:hover{background:rgba(0,240,255,.1);box-shadow:0 0 15px rgba(0,240,255,.2)}
+.btn-outline-purple{background:transparent;border-color:var(--purple);color:var(--purple)}
+.btn-outline-purple:hover{background:rgba(180,79,255,.1);box-shadow:0 0 15px rgba(180,79,255,.2)}
+.btn-spin-again{background:linear-gradient(135deg,#1a1a2e,#16213e);border-color:var(--border);color:var(--text)}
+.btn-spin-again:hover{border-color:var(--muted)}
+
+/* ── CONFETTI ── */
+.confetti-piece{position:fixed;width:8px;height:8px;pointer-events:none;z-index:100;border-radius:2px}
+
+/* ── FOOTER ── */
+footer{width:100%;text-align:center;padding:1.5rem 1rem;border-top:1px solid var(--border);
+  margin-top:1rem;position:relative;z-index:1}
+.footer-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 2rem;font-size:.8rem;color:var(--muted)}
+.footer-grid span b{color:var(--cyan)}
+.footer-brand{margin-top:.5rem;font-family:'Orbitron',monospace;font-size:.65rem;
+  letter-spacing:3px;color:var(--muted);opacity:.5}
+
+/* ── CANVAS HIDDEN RESULT ── */
+#resultCanvas{display:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:480px){
+  h1{font-size:1.6rem}
+  .result-cg{font-size:3.5rem}
+  .result-grade{font-size:2.2rem}
+  #spinBtn{font-size:.95rem;padding:.8rem 2rem}
+}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+
+<header>
+  <div class="logo-tag">ET Server · Bangladesh</div>
+  <h1>🎡 Lucky CG Wheel</h1>
+  <div class="subtitle">Spin Your Semester Fate</div>
+</header>
+
+<main>
+  <!-- STEP 1: University -->
+  <div class="step-card">
+    <div class="step-label"><span>1</span> Select Your University</div>
+    <select id="uniSelect">
+      <option value="">— Choose your university —</option>
+      <option value="NSU">NSU · North South University</option>
+      <option value="BRAC">BRAC · BRAC University</option>
+      <option value="DIU">DIU · Daffodil International University</option>
+      <option value="AIUB">AIUB · American International University-BD</option>
+      <option value="UIU">UIU · United International University</option>
+      <option value="EWU">EWU · East West University</option>
+      <option value="IUT">IUT · Islamic University of Technology</option>
+      <option value="DU">DU · University of Dhaka</option>
+      <option value="BUET">BUET · Bangladesh Univ. of Eng. & Tech.</option>
+      <option value="CUET">CUET · Chittagong Univ. of Eng. & Tech.</option>
+      <option value="SUST">SUST · Shahjalal Univ. of Sci. & Tech.</option>
+      <option value="RU">RU · University of Rajshahi</option>
+    </select>
+    <div class="grade-info" id="gradeInfo"></div>
+  </div>
+
+  <!-- STEP 2: Wheel -->
+  <div class="step-card">
+    <div class="step-label"><span>2</span> Spin The Wheel</div>
+    <div class="wheel-wrap">
+      <div class="wheel-container">
+        <div class="wheel-glow"></div>
+        <div class="pointer"></div>
+        <canvas id="wheelCanvas" width="360" height="360"></canvas>
+      </div>
+      <button id="spinBtn" onclick="spinWheel()">⚡ SPIN</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Result -->
+  <div id="resultSection">
+    <div class="result-card" id="resultCard">
+      <div class="result-uni" id="resultUni">University</div>
+      <div class="result-grade-label">GRADE ACHIEVED</div>
+      <div class="result-grade" id="resultGrade">A+</div>
+      <div class="result-cg" id="resultCG">4.00</div>
+      <div class="result-emoji" id="resultEmoji">🏆</div>
+      <div class="result-msg" id="resultMsg">Absolutely legendary!</div>
+      <div class="result-sub" id="resultSub">Top of the class</div>
+      <div class="result-actions">
+        <button class="btn btn-outline-cyan" onclick="saveImage()">📸 Screenshot &amp; Save</button>
+        <button class="btn btn-outline-purple" onclick="spinAgain()">🔄 Spin Again</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <span>🖥️ Server: <b>ET</b></span>
+    <span>👨‍💻 Developed by: <b>akd &amp; nsu</b></span>
+    <span>📅 <b>22 March 2026</b></span>
+  </div>
+  <div class="footer-brand">LUCKY CG WHEEL · ET SERVER · v1.0</div>
+</footer>
+
+<canvas id="resultCanvas" width="680" height="420"></canvas>
+
+<script>
+/* ── STARS ── */
+(function(){
+  const s=document.getElementById('stars');
+  for(let i=0;i<80;i++){
+    const d=document.createElement('div');
+    d.className='star';
+    const sz=Math.random()*2+.5;
+    d.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s`;
+    s.appendChild(d);
+  }
+})();
+
+/* ── UNIVERSITIES DATA ── */
+const UNIS={
+  NSU:{name:'North South University',system:'4.0 Scale (NSU)',
+    grades:{'A+':4.0,'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.7,'C+':2.3,'C':2.0,'C-':1.7,'D+':1.3,'D':1.0,'F':0.0}},
+  BRAC:{name:'BRAC University',system:'4.0 Scale (BRAC)',
+    grades:{'A+':4.0,'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.7,'C+':2.3,'C':2.0,'C-':1.7,'D+':1.3,'D':1.0,'F':0.0}},
+  DIU:{name:'Daffodil International Univ.',system:'4.0 Scale (DIU)',
+    grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D+':1.75,'D':1.5,'F':0.0}},
+  AIUB:{name:'AIUB',system:'4.0 Scale (AIUB)',
+    grades:{'A+':4.0,'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.7,'C+':2.3,'C':2.0,'C-':1.7,'D+':1.3,'D':1.0,'F':0.0}},
+  UIU:{name:'United International Univ.',system:'4.0 Scale (UIU)',
+    grades:{'A+':4.0,'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.7,'C+':2.3,'C':2.0,'C-':1.7,'D+':1.3,'D':1.0,'F':0.0}},
+  EWU:{name:'East West University',system:'4.0 Scale (EWU)',
+    grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D':1.5,'D-':1.0,'F':0.0}},
+  IUT:{name:'Islamic Univ. of Technology',system:'4.0 Scale (IUT)',
+    grades:{'A+':4.0,'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.7,'C+':2.3,'C':2.0,'C-':1.7,'D+':1.3,'D':1.0,'F':0.0}},
+  DU:{name:'University of Dhaka',system:'4.0 Scale (DU)',
+    grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D':1.75,'D-':1.5,'F':0.0}},
+  BUET:{name:'BUET',system:'4.0 Scale (BUET)',
+    grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D':1.75,'D-':1.5,'F':0.0}},
+  CUET:{name:'CUET',system:'4.0 Scale (CUET)',
+    grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D':1.75,'D-':1.5,'F':0.0}},
+  SUST:{name:'SUST',system:'4.0 Scale (SUST)',
+    grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D':1.75,'D-':1.5,'F':0.0}},
+  RU:{name:'University of Rajshahi',system:'4.0 Scale (RU)',
+    grades:{'A+':4.0,'A':3.75,'A-':3.5,'B+':3.25,'B':3.0,'B-':2.75,'C+':2.5,'C':2.25,'C-':2.0,'D':1.75,'D-':1.5,'F':0.0}},
+};
+
+/* ── WHEEL CONFIG ── */
+const SEGMENTS=['A+','A','A-','B+','B','B-','C+','C','C-','D+','D','F'];
+const SEG_COLORS=[
+  '#ff4d6d','#ff6b35','#ff9f1c','#ffbf00','#a8ff3e',
+  '#00ff88','#00f0ff','#00b8ff','#4d79ff','#9b5de5','#c77dff','#ff6b9d'
+];
+const SEG_DARK=[
+  '#800020','#8b3a00','#8b5a00','#8b6d00','#4d8000',
+  '#007a3f','#007a85','#005c8a','#1a3a8a','#4a1a8a','#6a3a8a','#8a1a4a'
+];
+
+const canvas=document.getElementById('wheelCanvas');
+const ctx=canvas.getContext('2d');
+const W=canvas.width,H=canvas.height,CX=W/2,CY=H/2,R=155;
+const numSeg=SEGMENTS.length,segAngle=(2*Math.PI)/numSeg;
+
+let currentAngle=0,isSpinning=false,targetSeg=-1;
+
+/* ── DRAW WHEEL ── */
+function drawWheel(){
+  ctx.clearRect(0,0,W,H);
+  ctx.save();
+  ctx.translate(CX,CY);
+  ctx.rotate(currentAngle);
+
+  for(let i=0;i<numSeg;i++){
+    const start=-Math.PI/2+i*segAngle;
+    const end=start+segAngle;
+    const mid=start+segAngle/2;
+
+    // Segment
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.arc(0,0,R,start,end);
+    ctx.closePath();
+
+    const grad=ctx.createRadialGradient(0,0,0,0,0,R);
+    grad.addColorStop(0,SEG_DARK[i]);
+    grad.addColorStop(1,SEG_COLORS[i]);
+    ctx.fillStyle=grad;
+    ctx.fill();
+
+    // Border
+    ctx.strokeStyle='rgba(0,0,0,.5)';
+    ctx.lineWidth=2;
+    ctx.stroke();
+
+    // Label
+    ctx.save();
+    ctx.rotate(mid);
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+
+    // Shadow
+    ctx.shadowColor=SEG_COLORS[i];
+    ctx.shadowBlur=10;
+
+    ctx.fillStyle='#fff';
+    ctx.font='bold 15px Orbitron, monospace';
+    ctx.fillText(SEGMENTS[i],R*.62,0);
+    ctx.restore();
+  }
+
+  // Center circle
+  ctx.beginPath();
+  ctx.arc(0,0,28,0,2*Math.PI);
+  const cg=ctx.createRadialGradient(0,0,0,0,0,28);
+  cg.addColorStop(0,'#1a1a3e');
+  cg.addColorStop(1,'#0d0d1f');
+  ctx.fillStyle=cg;
+  ctx.fill();
+  ctx.strokeStyle='rgba(0,240,255,.5)';
+  ctx.lineWidth=2;
+  ctx.stroke();
+
+  // Center icon
+  ctx.shadowColor='rgba(0,240,255,.8)';
+  ctx.shadowBlur=12;
+  ctx.fillStyle='#00f0ff';
+  ctx.font='bold 16px Orbitron, monospace';
+  ctx.textAlign='center';
+  ctx.textBaseline='middle';
+  ctx.fillText('CG',0,0);
+
+  ctx.restore();
+
+  // Outer ring
+  ctx.beginPath();
+  ctx.arc(CX,CY,R+3,0,2*Math.PI);
+  ctx.strokeStyle='rgba(0,240,255,.3)';
+  ctx.lineWidth=3;
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(CX,CY,R+8,0,2*Math.PI);
+  ctx.strokeStyle='rgba(180,79,255,.15)';
+  ctx.lineWidth=2;
+  ctx.stroke();
+}
+
+drawWheel();
+
+/* ── GRADE INFO PILLS ── */
+const uniSelect=document.getElementById('uniSelect');
+const gradeInfo=document.getElementById('gradeInfo');
+
+uniSelect.addEventListener('change',function(){
+  const key=this.value;
+  gradeInfo.innerHTML='';
+  if(!key)return;
+  const uni=UNIS[key];
+  Object.entries(uni.grades).forEach(([g,p])=>{
+    const pill=document.createElement('div');
+    pill.className='grade-pill';
+    pill.innerHTML=`${g}<b>→${p.toFixed(2)}</b>`;
+    gradeInfo.appendChild(pill);
+  });
+});
+
+/* ── SPIN LOGIC ── */
+let spinStart=0,spinDuration=4500,spinFrom=0,spinTo=0;
+
+function easeOut(t){return 1-Math.pow(1-t,4)}
+
+function spinWheel(){
+  if(isSpinning)return;
+  const key=uniSelect.value;
+  if(!key){uniSelect.style.borderColor='var(--pink)';uniSelect.focus();
+    setTimeout(()=>uniSelect.style.borderColor='',1200);return;}
+
+  document.getElementById('resultSection').style.display='none';
+  isSpinning=true;
+  document.getElementById('spinBtn').disabled=true;
+
+  // Pick random segment (weight: rare F, rare perfect)
+  const weights=[6,6,6,7,8,7,7,6,5,4,3,2]; // A+ weighted down slightly for fun
+  const total=weights.reduce((a,b)=>a+b,0);
+  let r=Math.random()*total,chosen=0;
+  for(let i=0;i<weights.length;i++){r-=weights[i];if(r<=0){chosen=i;break;}}
+  targetSeg=chosen;
+
+  // Target angle: land center of chosen segment at pointer
+  const targetMod=((2*Math.PI-(chosen+.5)*segAngle)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
+  const curMod=((currentAngle%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
+  let diff=targetMod-curMod;
+  if(diff<0)diff+=2*Math.PI;
+
+  spinFrom=currentAngle;
+  spinTo=currentAngle+6*2*Math.PI+diff;
+
+  spinStart=null;
+  requestAnimationFrame(animateSpin);
+}
+
+function animateSpin(ts){
+  if(!spinStart)spinStart=ts;
+  const elapsed=ts-spinStart;
+  const t=Math.min(elapsed/spinDuration,1);
+  currentAngle=spinFrom+(spinTo-spinFrom)*easeOut(t);
+  drawWheel();
+  if(t<1){requestAnimationFrame(animateSpin)}
+  else{
+    currentAngle=spinTo;
+    isSpinning=false;
+    document.getElementById('spinBtn').disabled=false;
+    showResult();
+  }
+}
+
+/* ── MESSAGES ── */
+function getMessage(cg){
+  if(cg>=4.0) return{emoji:'🏆',msg:'Absolutely Legendary!',sub:'Dean\'s List material — you crushed it!',cls:'legendary'};
+  if(cg>=3.7) return{emoji:'🌟',msg:'Outstanding Performance!',sub:'You\'re in the top tier, keep it up!',cls:'great'};
+  if(cg>=3.3) return{emoji:'🎯',msg:'Excellent Work!',sub:'Solid results — you should be proud!',cls:'great'};
+  if(cg>=3.0) return{emoji:'👍',msg:'Good Job!',sub:'Above average — stay consistent!',cls:'good'};
+  if(cg>=2.7) return{emoji:'💪',msg:'Not Bad At All!',sub:'Room to grow — push harder next sem!',cls:'good'};
+  if(cg>=2.3) return{emoji:'😤',msg:'You Can Do Better!',sub:'Grind time — next semester, go harder!',cls:'okay'};
+  if(cg>=2.0) return{emoji:'📚',msg:'Time To Hit The Books!',sub:'Passing, but barely — focus up!',cls:'okay'};
+  if(cg>=1.0) return{emoji:'😅',msg:'Ouch... That Hurts!',sub:'Probation territory — serious turnaround needed!',cls:'low'};
+  return{emoji:'💀',msg:'F in the Chat...',sub:'Time to reconsider life choices 😂',cls:'low'};
+}
+
+/* ── SHOW RESULT ── */
+function showResult(){
+  const key=uniSelect.value;
+  const uni=UNIS[key];
+  const grade=SEGMENTS[targetSeg];
+  const gp=uni.grades[grade]??0;
+
+  const {emoji,msg,sub,cls}=getMessage(gp);
+
+  const card=document.getElementById('resultCard');
+  card.className='result-card '+cls;
+
+  document.getElementById('resultUni').textContent=uni.name;
+  document.getElementById('resultGrade').textContent=grade;
+  document.getElementById('resultCG').textContent=gp.toFixed(2);
+  document.getElementById('resultEmoji').textContent=emoji;
+  document.getElementById('resultMsg').textContent=msg;
+  document.getElementById('resultSub').textContent=sub;
+
+  const sec=document.getElementById('resultSection');
+  sec.style.display='block';
+  sec.scrollIntoView({behavior:'smooth',block:'start'});
+
+  if(gp>=3.7)launchConfetti();
+}
+
+/* ── CONFETTI ── */
+function launchConfetti(){
+  const colors=['#00f0ff','#b44fff','#ffd700','#00ff88','#ff3399','#ff6b35'];
+  for(let i=0;i<60;i++){
+    const d=document.createElement('div');
+    d.className='confetti-piece';
+    d.style.cssText=`
+      left:${Math.random()*100}vw;top:-10px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      transform:rotate(${Math.random()*360}deg);
+      animation:fall ${1.5+Math.random()*2}s linear forwards;
+      animation-delay:${Math.random()*.5}s`;
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(),4000);
+  }
+}
+
+const style=document.createElement('style');
+style.textContent=`
+  @keyframes fall{
+    0%{transform:translateY(0) rotate(0deg);opacity:1}
+    100%{transform:translateY(100vh) rotate(720deg);opacity:0}
+  }`;
+document.head.appendChild(style);
+
+/* ── SPIN AGAIN ── */
+function spinAgain(){
+  document.getElementById('resultSection').style.display='none';
+  document.querySelector('.wheel-wrap').scrollIntoView({behavior:'smooth'});
+}
+
+/* ── SAVE IMAGE ── */
+function saveImage(){
+  const key=uniSelect.value;
+  if(!key)return;
+  const uni=UNIS[key];
+  const grade=SEGMENTS[targetSeg];
+  const gp=uni.grades[grade]??0;
+  const {emoji,msg,cls}=getMessage(gp);
+
+  const rc=document.getElementById('resultCanvas');
+  const rctx=rc.getContext('2d');
+  const W=680,H=420;
+  rctx.clearRect(0,0,W,H);
+
+  // Background
+  const bgGrad=rctx.createLinearGradient(0,0,W,H);
+  bgGrad.addColorStop(0,'#06060f');
+  bgGrad.addColorStop(.5,'#0d0d1f');
+  bgGrad.addColorStop(1,'#06060f');
+  rctx.fillStyle=bgGrad;
+  rctx.roundRect(0,0,W,H,20);
+  rctx.fill();
+
+  // Grid dots
+  rctx.fillStyle='rgba(0,240,255,.04)';
+  for(let x=20;x<W;x+=40)for(let y=20;y<H;y+=40){
+    rctx.beginPath();rctx.arc(x,y,1,0,2*Math.PI);rctx.fill();
+  }
+
+  // Top accent line
+  const lineGrad=rctx.createLinearGradient(0,0,W,0);
+  lineGrad.addColorStop(0,'transparent');
+  const accentColor=cls==='legendary'?'#ffd700':cls==='great'?'#00f0ff':cls==='good'?'#00ff88':cls==='okay'?'#b44fff':'#ff3399';
+  lineGrad.addColorStop(.5,accentColor);
+  lineGrad.addColorStop(1,'transparent');
+  rctx.fillStyle=lineGrad;
+  rctx.fillRect(0,0,W,3);
+
+  // Glow circle behind grade
+  rctx.save();
+  rctx.globalAlpha=.08;
+  const glowGrad=rctx.createRadialGradient(W/2,H/2,0,W/2,H/2,160);
+  glowGrad.addColorStop(0,accentColor);
+  glowGrad.addColorStop(1,'transparent');
+  rctx.fillStyle=glowGrad;
+  rctx.fillRect(0,0,W,H);
+  rctx.restore();
+
+  // Server tag
+  rctx.font='600 13px Rajdhani, sans-serif';
+  rctx.fillStyle='rgba(90,90,138,.7)';
+  rctx.textAlign='left';
+  rctx.fillText('ET SERVER · LUCKY CG WHEEL',30,30);
+
+  rctx.textAlign='right';
+  rctx.fillText('22 MARCH 2026',W-30,30);
+
+  // University
+  rctx.textAlign='center';
+  rctx.font='bold 14px Rajdhani, sans-serif';
+  rctx.fillStyle='rgba(90,90,138,.9)';
+  rctx.letterSpacing='3px';
+  rctx.fillText(uni.name.toUpperCase(),W/2,75);
+
+  // "SEMESTER CG" label
+  rctx.font='700 13px Orbitron, monospace';
+  rctx.fillStyle='rgba(90,90,138,.7)';
+  rctx.fillText('SEMESTER CG RESULT',W/2,105);
+
+  // Emoji
+  rctx.font='52px serif';
+  rctx.fillText(emoji,W/2,175);
+
+  // Grade letter
+  rctx.shadowColor=accentColor;
+  rctx.shadowBlur=20;
+  rctx.font='bold 64px Orbitron, monospace';
+  rctx.fillStyle=accentColor;
+  rctx.fillText(grade,W/2-80,250);
+
+  // CG number
+  rctx.font='900 92px Orbitron, monospace';
+  rctx.fillStyle=accentColor;
+  rctx.fillText(gp.toFixed(2),W/2+40,260);
+
+  rctx.shadowBlur=0;
+
+  // Divider
+  rctx.strokeStyle='rgba(255,255,255,.08)';
+  rctx.lineWidth=1;
+  rctx.beginPath();
+  rctx.moveTo(60,285);rctx.lineTo(W-60,285);
+  rctx.stroke();
+
+  // Message
+  rctx.font='bold 20px Rajdhani, sans-serif';
+  rctx.fillStyle='rgba(220,225,255,.9)';
+  rctx.fillText(msg,W/2,320);
+
+  // Grade system
+  rctx.font='600 12px Rajdhani, sans-serif';
+  rctx.fillStyle='rgba(90,90,138,.6)';
+  rctx.fillText(uni.system,W/2,350);
+
+  // Bottom credit
+  rctx.font='600 12px Orbitron, monospace';
+  rctx.fillStyle='rgba(90,90,138,.5)';
+  rctx.fillText('Developed by akd & nsu · ET Server',W/2,395);
+
+  // Download
+  const link=document.createElement('a');
+  link.download=`CG_${grade.replace('+','plus')}_${gp.toFixed(2)}_ET.png`;
+  link.href=rc.toDataURL('image/png');
+  link.click();
+}
+</script>
+</body>
+</html>
