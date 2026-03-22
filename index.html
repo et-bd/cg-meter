@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🎡 Lucky CG Wheel · ET Server</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  @font-face{font-family:'TNR';src:local('Times New Roman'),local('TimesNewRoman'),local('Times');font-weight:100 900;}
+</style>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -12,7 +14,7 @@
   --cyan:#00f0ff;--purple:#b44fff;--gold:#ffd700;
   --green:#00ff88;--pink:#ff3399;--text:#dde1ff;--muted:#5a5a8a;
 }
-body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;
+body{background:var(--bg);color:var(--text);font-family:'Times New Roman','TNR',Times,serif;
   min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden}
 
 /* ── STARS ── */
@@ -28,9 +30,9 @@ body::before{content:'';position:fixed;inset:0;
 
 /* ── HEADER ── */
 header{width:100%;text-align:center;padding:2.5rem 1rem 1rem;position:relative;z-index:1}
-.logo-tag{font-family:'Orbitron',monospace;font-size:.7rem;letter-spacing:4px;
+.logo-tag{font-family:'Times New Roman',Times,serif;font-style:italic;font-size:.85rem;letter-spacing:4px;
   color:var(--cyan);text-transform:uppercase;opacity:.7;margin-bottom:.5rem}
-h1{font-family:'Orbitron',monospace;font-size:clamp(1.6rem,5vw,2.8rem);
+h1{font-family:'Times New Roman',Times,serif;font-size:clamp(1.6rem,5vw,2.8rem);
   font-weight:900;letter-spacing:2px;line-height:1.1;
   background:linear-gradient(135deg,var(--cyan),var(--purple),var(--gold));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -44,14 +46,14 @@ main{width:100%;max-width:520px;padding:1rem 1.2rem 2rem;position:relative;z-ind
   border-radius:16px;padding:1.2rem 1.4rem;position:relative;overflow:hidden}
 .step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
   background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),transparent)}
-.step-label{font-family:'Orbitron',monospace;font-size:.65rem;letter-spacing:3px;
+.step-label{font-family:'Times New Roman',Times,serif;font-style:italic;font-size:.8rem;letter-spacing:3px;
   color:var(--purple);text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem}
 .step-label span{width:18px;height:18px;background:var(--purple);border-radius:50%;
   display:inline-flex;align-items:center;justify-content:center;font-size:.6rem;color:#fff;font-weight:700}
 
 /* ── SELECT ── */
 select{width:100%;background:#0a0a1a;border:1px solid var(--border);color:var(--text);
-  font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:600;padding:.7rem 1rem;
+  font-family:'Times New Roman',Times,serif;font-size:1rem;font-weight:600;padding:.7rem 1rem;
   border-radius:10px;outline:none;cursor:pointer;transition:border .2s,box-shadow .2s;
   appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300f0ff' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 1rem center}
@@ -79,7 +81,7 @@ select option{background:#0d0d1f}
 @keyframes glowPulse{0%{opacity:.5}100%{opacity:1}}
 
 /* ── SPIN BUTTON ── */
-#spinBtn{font-family:'Orbitron',monospace;font-weight:700;font-size:1.1rem;
+#spinBtn{font-family:'Times New Roman',Times,serif;font-weight:700;font-style:italic;font-size:1.2rem;
   letter-spacing:2px;padding:.9rem 3rem;border:none;border-radius:12px;cursor:pointer;
   background:linear-gradient(135deg,var(--cyan),var(--purple));color:#000;
   position:relative;overflow:hidden;transition:transform .15s,box-shadow .2s;
@@ -109,13 +111,13 @@ select option{background:#0d0d1f}
 .result-card.low::before{background:linear-gradient(90deg,transparent,var(--pink),transparent)}
 .result-uni{font-size:.85rem;font-weight:600;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:.4rem}
 .result-grade-label{font-size:1rem;font-weight:600;color:var(--muted);margin-bottom:.3rem}
-.result-grade{font-family:'Orbitron',monospace;font-size:3rem;font-weight:900;line-height:1}
+.result-grade{font-family:'Times New Roman',Times,serif;font-size:3rem;font-weight:900;line-height:1}
 .result-card.legendary .result-grade{color:var(--gold);text-shadow:0 0 20px var(--gold)}
 .result-card.great .result-grade{color:var(--cyan);text-shadow:0 0 20px var(--cyan)}
 .result-card.good .result-grade{color:var(--green);text-shadow:0 0 20px var(--green)}
 .result-card.okay .result-grade{color:var(--purple);text-shadow:0 0 20px var(--purple)}
 .result-card.low .result-grade{color:var(--pink);text-shadow:0 0 20px var(--pink)}
-.result-cg{font-family:'Orbitron',monospace;font-size:5rem;font-weight:900;line-height:1.1;margin:.2rem 0}
+.result-cg{font-family:'Times New Roman',Times,serif;font-size:5rem;font-weight:900;line-height:1.1;margin:.2rem 0}
 .result-card.legendary .result-cg{background:linear-gradient(135deg,#ffd700,#ffaa00,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .result-card.great .result-cg{background:linear-gradient(135deg,var(--cyan),#00a8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .result-card.good .result-cg{background:linear-gradient(135deg,var(--green),#00cc66);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -126,7 +128,7 @@ select option{background:#0d0d1f}
 .result-emoji{font-size:2rem;margin:.4rem 0}
 
 .result-actions{display:flex;gap:.8rem;margin-top:1.2rem;flex-wrap:wrap;justify-content:center}
-.btn{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:1px;
+.btn{font-family:'Times New Roman',Times,serif;font-weight:700;font-size:.95rem;letter-spacing:1px;
   padding:.7rem 1.4rem;border-radius:10px;border:1px solid;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.4rem}
 .btn-outline-cyan{background:transparent;border-color:var(--cyan);color:var(--cyan)}
 .btn-outline-cyan:hover{background:rgba(0,240,255,.1);box-shadow:0 0 15px rgba(0,240,255,.2)}
@@ -143,7 +145,7 @@ footer{width:100%;text-align:center;padding:1.5rem 1rem;border-top:1px solid var
   margin-top:1rem;position:relative;z-index:1}
 .footer-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 2rem;font-size:.8rem;color:var(--muted)}
 .footer-grid span b{color:var(--cyan)}
-.footer-brand{margin-top:.5rem;font-family:'Orbitron',monospace;font-size:.65rem;
+.footer-brand{margin-top:.5rem;font-family:'Times New Roman',Times,serif;font-style:italic;font-size:.75rem;
   letter-spacing:3px;color:var(--muted);opacity:.5}
 
 /* ── CANVAS HIDDEN RESULT ── */
@@ -223,7 +225,7 @@ footer{width:100%;text-align:center;padding:1.5rem 1rem;border-top:1px solid var
 <footer>
   <div class="footer-grid">
     <span>🖥️ Server: <b>ET</b></span>
-    <span>👨‍💻 Developed by: <b>akd &amp; nsu today </b></span>
+    <span>👨‍💻 Developed by: <b>akd &amp; nsu today</b></span>
     <span>📅 <b>22 March 2026</b></span>
   </div>
   <div class="footer-brand">LUCKY CG WHEEL · ET SERVER · v1.0</div>
@@ -285,7 +287,14 @@ const SEG_DARK=[
 
 const canvas=document.getElementById('wheelCanvas');
 const ctx=canvas.getContext('2d');
-const W=canvas.width,H=canvas.height,CX=W/2,CY=H/2,R=155;
+const DPR=Math.max(window.devicePixelRatio||1,4); // Force 4x for 4K quality
+const DISP=360; // display size in CSS px
+canvas.style.width=DISP+'px';
+canvas.style.height=DISP+'px';
+canvas.width=DISP*DPR;
+canvas.height=DISP*DPR;
+ctx.scale(DPR,DPR);
+const W=DISP,H=DISP,CX=W/2,CY=H/2,R=155;
 const numSeg=SEGMENTS.length,segAngle=(2*Math.PI)/numSeg;
 
 let currentAngle=0,isSpinning=false,targetSeg=-1;
@@ -330,7 +339,7 @@ function drawWheel(){
     ctx.shadowBlur=10;
 
     ctx.fillStyle='#fff';
-    ctx.font='bold 15px Orbitron, monospace';
+    ctx.font='bold 17px Times New Roman, Times, serif';
     ctx.fillText(SEGMENTS[i],R*.62,0);
     ctx.restore();
   }
@@ -351,7 +360,7 @@ function drawWheel(){
   ctx.shadowColor='rgba(0,240,255,.8)';
   ctx.shadowBlur=12;
   ctx.fillStyle='#00f0ff';
-  ctx.font='bold 16px Orbitron, monospace';
+  ctx.font='bold italic 18px Times New Roman, Times, serif';
   ctx.textAlign='center';
   ctx.textBaseline='middle';
   ctx.fillText('CG',0,0);
@@ -520,107 +529,153 @@ function saveImage(){
   const gp=uni.grades[grade]??0;
   const {emoji,msg,cls}=getMessage(gp);
 
+  // 2x HD canvas (1360x840 actual pixels, displayed as 680x420)
   const rc=document.getElementById('resultCanvas');
+  const S=2; // scale factor for HD
+  const CW=680,CH=500;
+  rc.width=CW*S;
+  rc.height=CH*S;
+  rc.style.width=CW+'px';
+  rc.style.height=CH+'px';
   const rctx=rc.getContext('2d');
-  const W=680,H=420;
-  rctx.clearRect(0,0,W,H);
+  rctx.scale(S,S);
+  const W=CW,H=CH;
+
+  const accentColor=cls==='legendary'?'#ffd700':cls==='great'?'#00f0ff':cls==='good'?'#00ff88':cls==='okay'?'#b44fff':'#ff3399';
+  const TNR="'Times New Roman', Times, serif";
 
   // Background
   const bgGrad=rctx.createLinearGradient(0,0,W,H);
   bgGrad.addColorStop(0,'#06060f');
   bgGrad.addColorStop(.5,'#0d0d1f');
-  bgGrad.addColorStop(1,'#06060f');
+  bgGrad.addColorStop(1,'#080812');
   rctx.fillStyle=bgGrad;
-  rctx.roundRect(0,0,W,H,20);
+  rctx.beginPath();
+  rctx.roundRect(0,0,W,H,16);
   rctx.fill();
 
   // Grid dots
-  rctx.fillStyle='rgba(0,240,255,.04)';
+  rctx.fillStyle='rgba(0,240,255,.035)';
   for(let x=20;x<W;x+=40)for(let y=20;y<H;y+=40){
-    rctx.beginPath();rctx.arc(x,y,1,0,2*Math.PI);rctx.fill();
+    rctx.beginPath();rctx.arc(x,y,1.2,0,2*Math.PI);rctx.fill();
   }
 
-  // Top accent line
-  const lineGrad=rctx.createLinearGradient(0,0,W,0);
-  lineGrad.addColorStop(0,'transparent');
-  const accentColor=cls==='legendary'?'#ffd700':cls==='great'?'#00f0ff':cls==='good'?'#00ff88':cls==='okay'?'#b44fff':'#ff3399';
-  lineGrad.addColorStop(.5,accentColor);
-  lineGrad.addColorStop(1,'transparent');
-  rctx.fillStyle=lineGrad;
-  rctx.fillRect(0,0,W,3);
-
-  // Glow circle behind grade
+  // Glow behind center
   rctx.save();
-  rctx.globalAlpha=.08;
-  const glowGrad=rctx.createRadialGradient(W/2,H/2,0,W/2,H/2,160);
+  rctx.globalAlpha=.07;
+  const glowGrad=rctx.createRadialGradient(W/2,H/2,0,W/2,H/2,180);
   glowGrad.addColorStop(0,accentColor);
   glowGrad.addColorStop(1,'transparent');
   rctx.fillStyle=glowGrad;
   rctx.fillRect(0,0,W,H);
   rctx.restore();
 
-  // Server tag
-  rctx.font='600 13px Rajdhani, sans-serif';
-  rctx.fillStyle='rgba(90,90,138,.7)';
+  // Top accent line
+  const lineGrad=rctx.createLinearGradient(0,0,W,0);
+  lineGrad.addColorStop(0,'transparent');
+  lineGrad.addColorStop(.5,accentColor);
+  lineGrad.addColorStop(1,'transparent');
+  rctx.fillStyle=lineGrad;
+  rctx.fillRect(0,0,W,3);
+
+  // ── ROW 1: Server tag left, date right ──
+  rctx.font=`italic 13px ${TNR}`;
+  rctx.fillStyle='rgba(100,100,160,.75)';
   rctx.textAlign='left';
-  rctx.fillText('ET SERVER · LUCKY CG WHEEL',30,30);
-
+  rctx.textBaseline='middle';
+  rctx.fillText('ET SERVER · LUCKY CG WHEEL',28,22);
   rctx.textAlign='right';
-  rctx.fillText('22 MARCH 2026',W-30,30);
+  rctx.fillText('22 MARCH 2026',W-28,22);
 
-  // University
+  // ── Thin separator ──
+  rctx.strokeStyle='rgba(255,255,255,.06)';
+  rctx.lineWidth=1;
+  rctx.beginPath();rctx.moveTo(28,42);rctx.lineTo(W-28,42);rctx.stroke();
+
+  // ── ROW 2: University name ──
   rctx.textAlign='center';
-  rctx.font='bold 14px Rajdhani, sans-serif';
-  rctx.fillStyle='rgba(90,90,138,.9)';
-  rctx.letterSpacing='3px';
-  rctx.fillText(uni.name.toUpperCase(),W/2,75);
+  rctx.textBaseline='middle';
+  rctx.font=`bold 15px ${TNR}`;
+  rctx.fillStyle='rgba(170,175,220,.85)';
+  rctx.fillText(uni.name.toUpperCase(),W/2,62);
 
-  // "SEMESTER CG" label
-  rctx.font='700 13px Orbitron, monospace';
-  rctx.fillStyle='rgba(90,90,138,.7)';
-  rctx.fillText('SEMESTER CG RESULT',W/2,105);
+  // ── ROW 3: "SEMESTER CG RESULT" label ──
+  rctx.font=`italic 12px ${TNR}`;
+  rctx.fillStyle='rgba(100,100,160,.7)';
+  rctx.fillText('SEMESTER CG RESULT',W/2,84);
 
-  // Emoji
-  rctx.font='52px serif';
-  rctx.fillText(emoji,W/2,175);
+  // ── Thin separator ──
+  rctx.strokeStyle='rgba(255,255,255,.05)';
+  rctx.beginPath();rctx.moveTo(80,100);rctx.lineTo(W-80,100);rctx.stroke();
 
-  // Grade letter
+  // ── ROW 4: Emoji ──
+  rctx.font='44px serif';
+  rctx.textBaseline='middle';
+  rctx.fillText(emoji,W/2,136);
+
+  // ── ROW 5: Grade Letter + CG on same line, well spaced ──
   rctx.shadowColor=accentColor;
-  rctx.shadowBlur=20;
-  rctx.font='bold 64px Orbitron, monospace';
+  rctx.shadowBlur=18;
   rctx.fillStyle=accentColor;
-  rctx.fillText(grade,W/2-80,250);
 
-  // CG number
-  rctx.font='900 92px Orbitron, monospace';
+  // Grade letter — left of center
+  rctx.textAlign='right';
+  rctx.font=`bold 72px ${TNR}`;
+  rctx.textBaseline='middle';
+  rctx.fillText(grade,W/2-18,230);
+
+  // Vertical divider
+  rctx.shadowBlur=0;
+  rctx.strokeStyle='rgba(255,255,255,.15)';
+  rctx.lineWidth=1.5;
+  rctx.beginPath();rctx.moveTo(W/2,195);rctx.lineTo(W/2,265);rctx.stroke();
+
+  // CG number — right of center
+  rctx.shadowColor=accentColor;
+  rctx.shadowBlur=18;
   rctx.fillStyle=accentColor;
-  rctx.fillText(gp.toFixed(2),W/2+40,260);
+  rctx.textAlign='left';
+  rctx.font=`bold 72px ${TNR}`;
+  rctx.fillText(gp.toFixed(2),W/2+18,230);
 
   rctx.shadowBlur=0;
 
-  // Divider
-  rctx.strokeStyle='rgba(255,255,255,.08)';
+  // ── Divider ──
+  rctx.strokeStyle='rgba(255,255,255,.07)';
   rctx.lineWidth=1;
-  rctx.beginPath();
-  rctx.moveTo(60,285);rctx.lineTo(W-60,285);
-  rctx.stroke();
+  rctx.beginPath();rctx.moveTo(50,285);rctx.lineTo(W-50,285);rctx.stroke();
 
-  // Message
-  rctx.font='bold 20px Rajdhani, sans-serif';
-  rctx.fillStyle='rgba(220,225,255,.9)';
-  rctx.fillText(msg,W/2,320);
+  // ── ROW 6: Message ──
+  rctx.textAlign='center';
+  rctx.textBaseline='middle';
+  rctx.font=`bold italic 22px ${TNR}`;
+  rctx.fillStyle='rgba(220,225,255,.92)';
+  rctx.fillText(msg,W/2,318);
 
-  // Grade system
-  rctx.font='600 12px Rajdhani, sans-serif';
-  rctx.fillStyle='rgba(90,90,138,.6)';
-  rctx.fillText(uni.system,W/2,350);
+  // ── ROW 7: Grade system ──
+  rctx.font=`13px ${TNR}`;
+  rctx.fillStyle='rgba(100,100,160,.65)';
+  rctx.fillText(uni.system,W/2,348);
 
-  // Bottom credit
-  rctx.font='600 12px Orbitron, monospace';
-  rctx.fillStyle='rgba(90,90,138,.5)';
-  rctx.fillText('Developed by akd & nsu today · ET Server',W/2,395);
+  // ── Thin separator ──
+  rctx.strokeStyle='rgba(255,255,255,.04)';
+  rctx.beginPath();rctx.moveTo(80,368);rctx.lineTo(W-80,368);rctx.stroke();
+
+  // ── ROW 8: Credit ──
+  rctx.font=`italic 12px ${TNR}`;
+  rctx.fillStyle='rgba(100,100,160,.55)';
+  rctx.fillText('Developed by akd & nsu today · ET Server',W/2,390);
+
+  // Bottom accent line
+  const lineGrad2=rctx.createLinearGradient(0,0,W,0);
+  lineGrad2.addColorStop(0,'transparent');
+  lineGrad2.addColorStop(.5,accentColor);
+  lineGrad2.addColorStop(1,'transparent');
+  rctx.fillStyle=lineGrad2;
+  rctx.fillRect(0,H-3,W,3);
 
   // Download
+
   const link=document.createElement('a');
   link.download=`CG_${grade.replace('+','plus')}_${gp.toFixed(2)}_ET.png`;
   link.href=rc.toDataURL('image/png');
